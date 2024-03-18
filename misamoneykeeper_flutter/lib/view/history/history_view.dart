@@ -1,4 +1,5 @@
 import 'package:misamoneykeeper_flutter/controller/history_view_model.dart';
+import 'package:misamoneykeeper_flutter/controller/pay_view_model.dart';
 import 'package:misamoneykeeper_flutter/server/globs.dart';
 import 'package:misamoneykeeper_flutter/server/loading_indicator.dart';
 import 'package:misamoneykeeper_flutter/utility/export.dart';
@@ -15,6 +16,14 @@ class HistoryView extends StatefulWidget {
 class _HistoryViewState extends State<HistoryView> {
   var historyVM = Get.put(HistoryViewModel());
   DateTime now = DateTime.now();
+  final payVM = Get.put(PayViewModel());
+
+  Future<void> delayedFunction() async {
+    await Future.delayed(
+        const Duration(milliseconds: 200)); // Thiết lập độ trễ là 2 giây
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -328,64 +337,59 @@ class _HistoryViewState extends State<HistoryView> {
                                                     .margin(const EdgeInsets
                                                         .symmetric(vertical: 4))
                                                     .make()
-                                                    .onTap(() {
-                                                  Get.to(
-                                                      () => AddView(
-                                                            isCheck: true,
-                                                            payId: data[index]
-                                                                .category![
-                                                                    index1]
-                                                                .payId,
-                                                            categoryIcon: SVKey
-                                                                    .mainUrl +
+                                                    .onTap(() async {
+                                                  await Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          AddView(
+                                                        isCheck: true,
+                                                        payId: data[index]
+                                                            .category![index1]
+                                                            .payId,
+                                                        categoryIcon:
+                                                            SVKey.mainUrl +
                                                                 data[index]
                                                                     .category![
                                                                         index1]
                                                                     .cadImage!,
-                                                            categoryTitle: data[
-                                                                    index]
+                                                        categoryTitle: data[
+                                                                index]
+                                                            .category![index1]
+                                                            .categoryName,
+                                                        categoryDetailsId: data[
+                                                                index]
+                                                            .category![index1]
+                                                            .categoryDetailsId,
+                                                        accountIcon: data[index]
+                                                            .category![index1]
+                                                            .acType,
+                                                        accountTitle: data[
+                                                                index]
+                                                            .category![index1]
+                                                            .acName,
+                                                        accountId: data[index]
+                                                            .category![index1]
+                                                            .accountId,
+                                                        dateController: data[
+                                                                index]
+                                                            .category![index1]
+                                                            .pDate,
+                                                        moneyAccount: data[
+                                                                index]
+                                                            .category![index1]
+                                                            .pMoney!
+                                                            .toString(),
+                                                        descriptionAccount:
+                                                            data[index]
                                                                 .category![
                                                                     index1]
-                                                                .categoryName,
-                                                            categoryDetailsId:
-                                                                data[index]
-                                                                    .category![
-                                                                        index1]
-                                                                    .categoryDetailsId,
-                                                            accountIcon:
-                                                                data[index]
-                                                                    .category![
-                                                                        index1]
-                                                                    .acType,
-                                                            accountTitle:
-                                                                data[index]
-                                                                    .category![
-                                                                        index1]
-                                                                    .acName,
-                                                            accountId:
-                                                                data[index]
-                                                                    .category![
-                                                                        index1]
-                                                                    .accountId,
-                                                            dateController:
-                                                                data[index]
-                                                                    .category![
-                                                                        index1]
-                                                                    .pDate,
-                                                            moneyAccount:
-                                                                data[index]
-                                                                    .category![
-                                                                        index1]
-                                                                    .pMoney!
-                                                                    .toString(),
-                                                            descriptionAccount:
-                                                                data[index]
-                                                                    .category![
-                                                                        index1]
-                                                                    .pExplanation,
-                                                          ),
-                                                      transition: Transition
-                                                          .rightToLeft);
+                                                                .pExplanation,
+                                                      ),
+                                                    ),
+                                                  ).then((value) {
+                                                    delayedFunction();
+                                                  });
                                                 });
                                               },
                                             )

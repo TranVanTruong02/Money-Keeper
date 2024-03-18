@@ -15,6 +15,12 @@ class StatusCollect extends StatefulWidget {
 var statusCollectVM = Get.put(StatusCollectViewModel());
 
 class _StatusCollectState extends State<StatusCollect> {
+  Future<void> delayedFunction() async {
+    await Future.delayed(
+        const Duration(milliseconds: 200)); // Thiết lập độ trễ là 2 giây
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +37,12 @@ class _StatusCollectState extends State<StatusCollect> {
             } else if (snapshot.hasData) {
               var data = snapshot.data!;
               var isLoading = false.obs;
+              var sum = 0;
+              for (var element in data) {
+                sum += element.sumMoney!;
+              }
+              var money = formatCurrency(sum);
+
               return Column(
                 children: [
                   10.heightBox,
@@ -43,10 +55,9 @@ class _StatusCollectState extends State<StatusCollect> {
                           .color(Colors.black)
                           .fontFamily(sansBold)
                           .make(),
-                      formatCurrency(data[0].sumMoney)
-                          .text
+                      money.text
                           .size(16)
-                          .color(Colors.red)
+                          .color(Colors.green)
                           .fontFamily(sansBold)
                           .make(),
                     ],
@@ -61,7 +72,7 @@ class _StatusCollectState extends State<StatusCollect> {
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     padding: const EdgeInsets.only(left: 10),
-                    itemCount: data[0].categoryDetails!.length,
+                    itemCount: data.length,
                     itemBuilder: (context, index) {
                       return Column(
                         children: [
@@ -86,7 +97,7 @@ class _StatusCollectState extends State<StatusCollect> {
                                       data[0].categoryDetails![index].sumMoney)
                                   .text
                                   .size(14)
-                                  .color(Colors.red)
+                                  .color(Colors.green)
                                   .fontFamily(sansBold)
                                   .make(),
                               5.widthBox,
@@ -159,54 +170,73 @@ class _StatusCollectState extends State<StatusCollect> {
                                           .make()
                                           .onTap(() {
                                         Get.to(
-                                            () => AddView(
-                                                  isCheck: true,
-                                                  payId: data[0]
+                                                () => AddView(
+                                                      isCheck: true,
+                                                      payId: data[0]
                                                           .categoryDetails![
                                                               index]
                                                           .pay![index1]
-                                                        .payId,
-                                                  categoryIcon: SVKey.mainUrl +
-                                                      data[0]
+                                                          .payId,
+                                                      pType: data[0]
                                                           .categoryDetails![
                                                               index]
                                                           .pay![index1]
-                                                          .cadImage!,
-                                                  categoryTitle: data[0]
-                                                      .categoryDetails![index]
-                                                      .pay![index1]
-                                                      .categoryName,
-                                                  categoryDetailsId: data[0]
-                                                      .categoryDetails![index]
-                                                      .pay![index1]
-                                                      .categoryDetailsId,
-                                                  accountIcon: data[0]
-                                                      .categoryDetails![index]
-                                                      .pay![index1]
-                                                      .acType,
-                                                  accountTitle: data[0]
-                                                      .categoryDetails![index]
-                                                      .pay![index1]
-                                                      .acName,
-                                                  accountId: data[0]
-                                                      .categoryDetails![index]
-                                                      .pay![index1]
-                                                      .accountId,
-                                                  dateController: data[0]
-                                                      .categoryDetails![index]
-                                                      .pay![index1]
-                                                      .pDate,
-                                                  moneyAccount: data[0]
-                                                      .categoryDetails![index]
-                                                      .pay![index1]
-                                                      .pMoney!
-                                                      .toString(),
-                                                  descriptionAccount: data[0]
-                                                      .categoryDetails![index]
-                                                      .pay![index1]
-                                                      .pExplanation,
-                                                ),
-                                            transition: Transition.rightToLeft);
+                                                          .pType,
+                                                      categoryIcon: SVKey
+                                                              .mainUrl +
+                                                          data[0]
+                                                              .categoryDetails![
+                                                                  index]
+                                                              .pay![index1]
+                                                              .cadImage!,
+                                                      categoryTitle: data[0]
+                                                          .categoryDetails![
+                                                              index]
+                                                          .pay![index1]
+                                                          .categoryName,
+                                                      categoryDetailsId: data[0]
+                                                          .categoryDetails![
+                                                              index]
+                                                          .pay![index1]
+                                                          .categoryDetailsId,
+                                                      accountIcon: data[0]
+                                                          .categoryDetails![
+                                                              index]
+                                                          .pay![index1]
+                                                          .acType,
+                                                      accountTitle: data[0]
+                                                          .categoryDetails![
+                                                              index]
+                                                          .pay![index1]
+                                                          .acName,
+                                                      accountId: data[0]
+                                                          .categoryDetails![
+                                                              index]
+                                                          .pay![index1]
+                                                          .accountId,
+                                                      dateController: data[0]
+                                                          .categoryDetails![
+                                                              index]
+                                                          .pay![index1]
+                                                          .pDate,
+                                                      moneyAccount: data[0]
+                                                          .categoryDetails![
+                                                              index]
+                                                          .pay![index1]
+                                                          .pMoney!
+                                                          .toString(),
+                                                      descriptionAccount:
+                                                          data[0]
+                                                              .categoryDetails![
+                                                                  index]
+                                                              .pay![index1]
+                                                              .pExplanation,
+                                                    ),
+                                                transition:
+                                                    Transition.rightToLeft)
+                                            ?.then((value) {
+                                          delayedFunction();
+                                        });
                                       });
                                     },
                                   )

@@ -596,6 +596,7 @@ class RecentNotesView(APIView):
             data1 = []
             for p in pay:
                 data1.append({
+                    
                     'p_date': p['p_date'],
                     'p_money_type': 1 if p['sum_money_pay'] is not None else 2,
                     'p_money_pay': p['sum_money_pay'] if p['sum_money_pay'] is not None else 0, 
@@ -609,13 +610,14 @@ class RecentNotesView(APIView):
             data2 = []
             for c in category:
                 data2.append({
+                    'pay_id': c.pay_id,
                     'category_details_id': c.category_details_id.category_details_id,
                     'category_name': c.category_details_id.cad_name,
                     'cad_image': c.category_details_id.cad_image.url, 
                     'p_type': c.p_type,
                     'p_date': c.p_date, 
                     'p_money': c.p_money,
-                    'pp_explanation': c.p_explanation,
+                    'p_explanation': c.p_explanation,
                     'account_id': c.account_id.account_id,
                     'ac_name': c.account_id.ac_name,
                     'ac_type': c.account_id.ac_type
@@ -856,7 +858,7 @@ class CollectedView(APIView):
                 data = {
                         'status': 1,
                         'payload': data2,
-                        'message': "Bạn đã lấy thông tin chi thành công"
+                        'message': "Bạn đã lấy thông tin thu thành công"
                     }
                 return JsonResponse(data, status= status.HTTP_200_OK, safe=False)
    

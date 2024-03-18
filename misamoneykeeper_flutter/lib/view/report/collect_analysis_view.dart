@@ -81,6 +81,8 @@ class _CollectAnalysisViewState extends State<CollectAnalysisView>
       maxValue = maxSum / 1000; // Chia cho 1000 nếu cần đơn vị là nghìn
       interval = maxValue / 4;
       interval = (interval ~/ 10) * 10.0;
+      print(maxValue);
+      print(interval);
       setState(() {});
     } else {
       setState(() {

@@ -38,6 +38,13 @@ class _HomeViewState extends State<HomeView> {
     super.dispose();
   }
 
+  Future<void> delayedFunction() async {
+    await Future.delayed(const Duration(milliseconds: 200));
+    setState(() {
+      homeViewModel = Get.put(HomeViewModel());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +71,7 @@ class _HomeViewState extends State<HomeView> {
                 snapshot.data?[1] as List<HomeStatusModel>?;
             List<RecnetNoteHome>? recnetNoteHome =
                 snapshot.data?[2] as List<RecnetNoteHome>?;
-            print(status);
+            print(recnetNoteHome);
             int sum = 0;
             if (account!.isEmpty) {
               sum = 0;
@@ -165,285 +172,272 @@ class _HomeViewState extends State<HomeView> {
                     ),
                     10.heightBox,
                     // Tình hình thu chi
-                    status.isNotEmpty
-                        ? Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 15, vertical: 10),
-                            color: Colors.white,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  'Tình hình thu chi',
-                                  style: TextStyle(fontSize: 18.0),
-                                ),
-                                Row(
-                                  children: [
-                                    "Tháng này"
-                                        .text
-                                        .size(14)
-                                        .fontFamily(sansRegular)
-                                        .color(Colors.black54)
-                                        .make(),
-                                    2.widthBox,
-                                    const Icon(
-                                      Icons.arrow_drop_down,
-                                      size: 25,
-                                      color: Colors.black54,
-                                    )
-                                  ],
-                                ),
-                                10.heightBox,
-                                status[0].sum != null &&
-                                        status[0].sum!.isNotEmpty
-                                    ? SizedBox(
-                                        height: 150,
-                                        child: Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: [
-                                            Container(
-                                              color: status[0]
-                                                          .sum![0]
-                                                          .pMoneyCollect! >
-                                                      status[0]
-                                                          .sum![0]
-                                                          .pMoneyPay!
-                                                  ? Colors.green
-                                                  : Colors.red,
-                                              width: 30,
-                                            ),
-                                            10.widthBox,
-                                            Container(
-                                              color: status[0]
-                                                          .sum![0]
-                                                          .pMoneyCollect! >
-                                                      status[0]
-                                                          .sum![0]
-                                                          .pMoneyPay!
-                                                  ? Colors.red
-                                                  : Colors.green,
-                                              width: 30,
-                                              height: 80,
-                                            ),
-                                            30.widthBox,
-                                            Expanded(
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    children: [
-                                                      Container(
-                                                        width: 15,
-                                                        height: 15,
-                                                        decoration: const BoxDecoration(
-                                                            color: Colors.green,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .all(Radius
-                                                                        .circular(
-                                                                            15))),
-                                                      ),
-                                                      5.widthBox,
-                                                      "Thu"
-                                                          .text
-                                                          .size(14)
-                                                          .fontFamily(
-                                                              sansRegular)
-                                                          .color(Colors.black)
-                                                          .make(),
-                                                      const Spacer(),
-                                                      formatCurrency(status[0]
-                                                              .sum![0]
-                                                              .pMoneyCollect!)
-                                                          .text
-                                                          .size(14)
-                                                          .fontFamily(sansBold)
-                                                          .color(Colors.green)
-                                                          .make(),
-                                                    ],
-                                                  ),
-                                                  20.heightBox,
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    children: [
-                                                      Container(
-                                                        width: 15,
-                                                        height: 15,
-                                                        decoration: const BoxDecoration(
-                                                            color: Colors.red,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .all(Radius
-                                                                        .circular(
-                                                                            15))),
-                                                      ),
-                                                      5.widthBox,
-                                                      "Chi"
-                                                          .text
-                                                          .size(16)
-                                                          .fontFamily(
-                                                              sansRegular)
-                                                          .color(Colors.black)
-                                                          .make(),
-                                                      const Spacer(),
-                                                      formatCurrency(status[0]
-                                                              .sum![0]
-                                                              .pMoneyPay!)
-                                                          .text
-                                                          .size(14)
-                                                          .fontFamily(sansBold)
-                                                          .color(Colors.red)
-                                                          .make(),
-                                                    ],
-                                                  ),
-                                                  10.heightBox,
-                                                  const Divider(
-                                                    color: Colors.black12,
-                                                    height: 1,
-                                                    indent: 20,
-                                                    thickness: 2,
-                                                  ),
-                                                  10.heightBox,
-                                                  Align(
-                                                    alignment:
-                                                        Alignment.centerRight,
-                                                    child: formatCurrency((status[
-                                                                    0]
-                                                                .sum![0]
-                                                                .pMoneyCollect! -
-                                                            status[0]
-                                                                .sum![0]
-                                                                .pMoneyPay!))
-                                                        .text
-                                                        .size(14)
-                                                        .fontFamily(sansBold)
-                                                        .color(Colors.black)
-                                                        .make(),
-                                                  )
-                                                ],
-                                              ),
-                                            )
-                                          ],
-                                        ))
-                                    : const Center(
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
+                      color: Colors.white,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Tình hình thu chi',
+                            style: TextStyle(fontSize: 18.0),
+                          ),
+                          Row(
+                            children: [
+                              "Tháng này"
+                                  .text
+                                  .size(14)
+                                  .fontFamily(sansRegular)
+                                  .color(Colors.black54)
+                                  .make(),
+                              2.widthBox,
+                              const Icon(
+                                Icons.arrow_drop_down,
+                                size: 25,
+                                color: Colors.black54,
+                              )
+                            ],
+                          ),
+                          10.heightBox,
+                          status[0].sum != null && status[0].sum!.isNotEmpty
+                              ? SizedBox(
+                                  height: 150,
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Container(
+                                        color:
+                                            status[0].sum![0].pMoneyCollect! >
+                                                    status[0].sum![0].pMoneyPay!
+                                                ? Colors.green
+                                                : Colors.red,
+                                        width: 30,
+                                      ),
+                                      10.widthBox,
+                                      Container(
+                                        color:
+                                            status[0].sum![0].pMoneyCollect! >
+                                                    status[0].sum![0].pMoneyPay!
+                                                ? Colors.red
+                                                : Colors.green,
+                                        width: 30,
+                                        height: 80,
+                                      ),
+                                      30.widthBox,
+                                      Expanded(
                                         child: Column(
-                                        children: [
-                                          SizedBox(
-                                            height: 20,
-                                          ),
-                                          Text(
-                                            'Không có dữ liệu',
-                                            style: TextStyle(
-                                                fontSize: 14.0,
-                                                color: Colors.black12),
-                                          ),
-                                        ],
-                                      )),
-                                30.heightBox,
-                                const Divider(
-                                  color: Colors.black12,
-                                  height: 1,
-                                  thickness: 2,
-                                ),
-                                10.heightBox,
-                                "Biểu đồ thu chi"
-                                    .text
-                                    .size(18)
-                                    .fontFamily(sansBold)
-                                    .color(Colors.black)
-                                    .make(),
-                                chartData.isNotEmpty
-                                    ? SfCircularChart(
-                                        series: <CircularSeries>[
-                                          DoughnutSeries<ChartData, String>(
-                                            dataSource: chartData,
-                                            pointColorMapper:
-                                                (ChartData data, _) =>
-                                                    data.color,
-                                            xValueMapper: (ChartData data, _) =>
-                                                data.x,
-                                            yValueMapper: (ChartData data, _) =>
-                                                data.y,
-                                          ),
-                                        ],
-                                        legend: Legend(
-                                          isVisible: true,
-                                          position: LegendPosition.right,
-                                          legendItemBuilder: (legendText,
-                                              series, point, seriesIndex) {
-                                            final ChartData data =
-                                                chartData[seriesIndex];
-                                            return Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
                                               mainAxisSize: MainAxisSize.min,
                                               children: [
                                                 Container(
                                                   width: 15,
                                                   height: 15,
-                                                  decoration: BoxDecoration(
-                                                      color: data.color,
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                              .all(
-                                                              Radius.circular(
-                                                                  15))),
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                          color: Colors.green,
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          15))),
                                                 ),
                                                 5.widthBox,
-                                                data.x.text
-                                                    .size(14)
-                                                    .fontFamily(sansRegular)
-                                                    .color(Colors.black)
-                                                    .make(),
-                                                5.widthBox,
-                                                "(${formatCurrency(data.y.toInt())})"
+                                                "Thu"
                                                     .text
                                                     .size(14)
                                                     .fontFamily(sansRegular)
                                                     .color(Colors.black)
                                                     .make(),
+                                                const Spacer(),
+                                                formatCurrency(status[0]
+                                                        .sum![0]
+                                                        .pMoneyCollect!)
+                                                    .text
+                                                    .size(14)
+                                                    .fontFamily(sansBold)
+                                                    .color(Colors.green)
+                                                    .make(),
                                               ],
-                                            );
-                                          },
+                                            ),
+                                            20.heightBox,
+                                            Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Container(
+                                                  width: 15,
+                                                  height: 15,
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                          color: Colors.red,
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          15))),
+                                                ),
+                                                5.widthBox,
+                                                "Chi"
+                                                    .text
+                                                    .size(16)
+                                                    .fontFamily(sansRegular)
+                                                    .color(Colors.black)
+                                                    .make(),
+                                                const Spacer(),
+                                                formatCurrency(status[0]
+                                                        .sum![0]
+                                                        .pMoneyPay!)
+                                                    .text
+                                                    .size(14)
+                                                    .fontFamily(sansBold)
+                                                    .color(Colors.red)
+                                                    .make(),
+                                              ],
+                                            ),
+                                            10.heightBox,
+                                            const Divider(
+                                              color: Colors.black12,
+                                              height: 1,
+                                              indent: 20,
+                                              thickness: 2,
+                                            ),
+                                            10.heightBox,
+                                            Align(
+                                              alignment: Alignment.centerRight,
+                                              child: formatCurrency((status[0]
+                                                          .sum![0]
+                                                          .pMoneyCollect! -
+                                                      status[0]
+                                                          .sum![0]
+                                                          .pMoneyPay!))
+                                                  .text
+                                                  .size(14)
+                                                  .fontFamily(sansBold)
+                                                  .color(Colors.black)
+                                                  .make(),
+                                            )
+                                          ],
                                         ),
                                       )
-                                    : const Center(
-                                        child: Column(
-                                        children: [
-                                          SizedBox(
-                                            height: 20,
-                                          ),
-                                          Text(
-                                            'Không có dữ liệu',
-                                            style: TextStyle(
-                                                fontSize: 14.0,
-                                                color: Colors.black12),
-                                          ),
-                                        ],
-                                      )),
-                                Align(
-                                  alignment: Alignment.bottomRight,
-                                  child: TextButton(
-                                    onPressed: () {
-                                      Get.to(() => const StatusMain(),
-                                          transition: Transition.rightToLeft);
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      foregroundColor: Colors.blue,
-                                      backgroundColor: Colors.white,
+                                    ],
+                                  ))
+                              : const Center(
+                                  child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 20,
                                     ),
-                                    child: const Text('Xem chi tiết >'),
+                                    Text(
+                                      'Không có dữ liệu',
+                                      style: TextStyle(
+                                          fontSize: 14.0,
+                                          color: Colors.black12),
+                                    ),
+                                  ],
+                                )),
+                          30.heightBox,
+                          const Divider(
+                            color: Colors.black12,
+                            height: 1,
+                            thickness: 2,
+                          ),
+                          10.heightBox,
+                          "Biểu đồ thu chi"
+                              .text
+                              .size(18)
+                              .fontFamily(sansBold)
+                              .color(Colors.black)
+                              .make(),
+                          chartData.isNotEmpty
+                              ? SfCircularChart(
+                                  series: <CircularSeries>[
+                                    DoughnutSeries<ChartData, String>(
+                                      dataSource: chartData,
+                                      pointColorMapper: (ChartData data, _) =>
+                                          data.color,
+                                      xValueMapper: (ChartData data, _) =>
+                                          data.x,
+                                      yValueMapper: (ChartData data, _) =>
+                                          data.y,
+                                    ),
+                                  ],
+                                  legend: Legend(
+                                    isVisible: true,
+                                    position: LegendPosition.right,
+                                    legendItemBuilder: (legendText, series,
+                                        point, seriesIndex) {
+                                      final ChartData data =
+                                          chartData[seriesIndex];
+                                      return Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Container(
+                                            width: 15,
+                                            height: 15,
+                                            decoration: BoxDecoration(
+                                                color: data.color,
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(15))),
+                                          ),
+                                          5.widthBox,
+                                          data.x.text
+                                              .size(14)
+                                              .fontFamily(sansRegular)
+                                              .color(Colors.black)
+                                              .make(),
+                                          5.widthBox,
+                                          "(${formatCurrency(data.y.toInt())})"
+                                              .text
+                                              .size(14)
+                                              .fontFamily(sansRegular)
+                                              .color(Colors.black)
+                                              .make(),
+                                        ],
+                                      );
+                                    },
                                   ),
                                 )
-                              ],
+                              : const Center(
+                                  child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    Text(
+                                      'Không có dữ liệu',
+                                      style: TextStyle(
+                                          fontSize: 14.0,
+                                          color: Colors.black12),
+                                    ),
+                                  ],
+                                )),
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: TextButton(
+                              onPressed: () {
+                                Get.delete<HomeViewModel>();
+                                Get.to(() => const StatusMain(),
+                                        transition: Transition.rightToLeft)
+                                    ?.then((value) {
+                                  delayedFunction();
+                                });
+                              },
+                              style: ElevatedButton.styleFrom(
+                                foregroundColor: Colors.blue,
+                                backgroundColor: Colors.white,
+                              ),
+                              child: const Text('Xem chi tiết >'),
                             ),
                           )
-                        : const Text('data'),
+                        ],
+                      ),
+                    ),
                     10.heightBox,
                     // Ghi chép gần đây
                     Container(
@@ -543,39 +537,49 @@ class _HomeViewState extends State<HomeView> {
                                             vertical: 4))
                                         .make()
                                         .onTap(() {
+                                      Get.delete<HomeViewModel>();
                                       Get.to(
-                                          () => AddView(
-                                                isCheck: true,
-                                                payId:
-                                                    recnetNoteHome[index].payId,
-                                                categoryIcon: SVKey.mainUrl +
-                                                    recnetNoteHome[index]
-                                                        .cadImage!,
-                                                categoryTitle:
-                                                    recnetNoteHome[index]
-                                                        .categoryName,
-                                                categoryDetailsId:
-                                                    recnetNoteHome[index]
-                                                        .categoryDetailsId,
-                                                accountIcon:
-                                                    recnetNoteHome[index]
-                                                        .acType,
-                                                accountTitle:
-                                                    recnetNoteHome[index]
-                                                        .acName,
-                                                accountId: recnetNoteHome[index]
-                                                    .accountId,
-                                                dateController:
-                                                    recnetNoteHome[index].pDate,
-                                                moneyAccount:
-                                                    recnetNoteHome[index]
-                                                        .pMoney!
-                                                        .toString(),
-                                                descriptionAccount:
-                                                    recnetNoteHome[index]
-                                                        .pExplanation,
-                                              ),
-                                          transition: Transition.rightToLeft);
+                                              () => AddView(
+                                                    isCheck: true,
+                                                    payId: recnetNoteHome[index]
+                                                        .payId,
+                                                    pType: recnetNoteHome[index]
+                                                        .pType,
+                                                    categoryIcon: SVKey
+                                                            .mainUrl +
+                                                        recnetNoteHome[index]
+                                                            .cadImage!,
+                                                    categoryTitle:
+                                                        recnetNoteHome[index]
+                                                            .categoryName,
+                                                    categoryDetailsId:
+                                                        recnetNoteHome[index]
+                                                            .categoryDetailsId,
+                                                    accountIcon:
+                                                        recnetNoteHome[index]
+                                                            .acType,
+                                                    accountTitle:
+                                                        recnetNoteHome[index]
+                                                            .acName,
+                                                    accountId:
+                                                        recnetNoteHome[index]
+                                                            .accountId,
+                                                    dateController:
+                                                        recnetNoteHome[index]
+                                                            .pDate,
+                                                    moneyAccount:
+                                                        recnetNoteHome[index]
+                                                            .pMoney!
+                                                            .toString(),
+                                                    descriptionAccount:
+                                                        recnetNoteHome[index]
+                                                            .pExplanation,
+                                                  ),
+                                              transition:
+                                                  Transition.rightToLeft)
+                                          ?.then((value) {
+                                        delayedFunction();
+                                      });
                                     });
                                   },
                                 )
@@ -598,8 +602,14 @@ class _HomeViewState extends State<HomeView> {
                             alignment: Alignment.bottomRight,
                             child: TextButton(
                               onPressed: () {
-                                Get.to(() => const HistoryView(),
-                                    transition: Transition.rightToLeft);
+                                Get.delete<HomeViewModel>();
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const HistoryView())).then((value) {
+                                  delayedFunction();
+                                });
                               },
                               style: ElevatedButton.styleFrom(
                                 foregroundColor: Colors.blue,

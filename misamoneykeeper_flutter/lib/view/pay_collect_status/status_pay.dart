@@ -15,6 +15,17 @@ class StatusPay extends StatefulWidget {
 var statusPayVM = Get.put(StatusPayViewModel());
 
 class _StatusPayState extends State<StatusPay> {
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   setState(() {});
+  // }
+  Future<void> delayedFunction() async {
+    await Future.delayed(
+        const Duration(milliseconds: 200)); // Thiết lập độ trễ là 2 giây
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -216,71 +227,77 @@ class _StatusPayState extends State<StatusPay> {
                                                         vertical: 2))
                                                 .make()
                                                 .onTap(() {
-                                              Get.to(
-                                                  () => AddView(
-                                                        isCheck: true,
-                                                        payId: data[index]
-                                                                .categoryDetails![
-                                                                    index1]
-                                                                .pay![index2]
-                                                        .payId,
-                                                        categoryIcon: SVKey
-                                                                .mainUrl +
-                                                            data[index]
-                                                                .categoryDetails![
-                                                                    index1]
-                                                                .pay![index2]
-                                                                .cadImage!,
-                                                        categoryTitle: data[
-                                                                index]
-                                                            .categoryDetails![
-                                                                index1]
-                                                            .pay![index2]
-                                                            .categoryName,
-                                                        categoryDetailsId: data[
-                                                                index]
-                                                            .categoryDetails![
-                                                                index1]
-                                                            .pay![index2]
-                                                            .categoryDetailsId,
-                                                        accountIcon: data[index]
-                                                            .categoryDetails![
-                                                                index1]
-                                                            .pay![index2]
-                                                            .acType,
-                                                        accountTitle: data[
-                                                                index]
-                                                            .categoryDetails![
-                                                                index1]
-                                                            .pay![index2]
-                                                            .acName,
-                                                        accountId: data[index]
-                                                            .categoryDetails![
-                                                                index1]
-                                                            .pay![index2]
-                                                            .accountId,
-                                                        dateController: data[
-                                                                index]
-                                                            .categoryDetails![
-                                                                index1]
-                                                            .pay![index2]
-                                                            .pDate,
-                                                        moneyAccount: data[
-                                                                index]
-                                                            .categoryDetails![
-                                                                index1]
-                                                            .pay![index2]
-                                                            .pMoney!
-                                                            .toString(),
-                                                        descriptionAccount: data[
-                                                                index]
-                                                            .categoryDetails![
-                                                                index1]
-                                                            .pay![index2]
-                                                            .pExplanation,
-                                                      ),
-                                                  transition:
-                                                      Transition.rightToLeft);
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        AddView(
+                                                      isCheck: true,
+                                                      payId: data[index]
+                                                          .categoryDetails![
+                                                              index1]
+                                                          .pay![index2]
+                                                          .payId,
+                                                      pType: data[index]
+                                                          .categoryDetails![
+                                                              index1]
+                                                          .pay![index2]
+                                                          .pType,
+                                                      categoryIcon: SVKey
+                                                              .mainUrl +
+                                                          data[index]
+                                                              .categoryDetails![
+                                                                  index1]
+                                                              .pay![index2]
+                                                              .cadImage!,
+                                                      categoryTitle: data[index]
+                                                          .categoryDetails![
+                                                              index1]
+                                                          .pay![index2]
+                                                          .categoryName,
+                                                      categoryDetailsId: data[
+                                                              index]
+                                                          .categoryDetails![
+                                                              index1]
+                                                          .pay![index2]
+                                                          .categoryDetailsId,
+                                                      accountIcon: data[index]
+                                                          .categoryDetails![
+                                                              index1]
+                                                          .pay![index2]
+                                                          .acType,
+                                                      accountTitle: data[index]
+                                                          .categoryDetails![
+                                                              index1]
+                                                          .pay![index2]
+                                                          .acName,
+                                                      accountId: data[index]
+                                                          .categoryDetails![
+                                                              index1]
+                                                          .pay![index2]
+                                                          .accountId,
+                                                      dateController:
+                                                          data[index]
+                                                              .categoryDetails![
+                                                                  index1]
+                                                              .pay![index2]
+                                                              .pDate,
+                                                      moneyAccount: data[index]
+                                                          .categoryDetails![
+                                                              index1]
+                                                          .pay![index2]
+                                                          .pMoney!
+                                                          .toString(),
+                                                      descriptionAccount:
+                                                          data[index]
+                                                              .categoryDetails![
+                                                                  index1]
+                                                              .pay![index2]
+                                                              .pExplanation,
+                                                    ),
+                                                  )).then((value) {
+                                                delayedFunction();
+                                              });
                                             });
                                           },
                                         )

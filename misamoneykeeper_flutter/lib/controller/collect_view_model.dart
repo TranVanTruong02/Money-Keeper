@@ -51,14 +51,15 @@ class CollectViewModel extends GetxController {
     });
   }
 
-   void serviceUpdatePay(int pay, String moneyOld) async {
+  void serviceUpdatePay(int pay, String moneyOld) async {
     isLoading(true);
+    print(pay);
     await ServiceCallPatch.patch({
       "pay_id": pay.toString(),
       "user_id": splashVM.userModel.value.id.toString(),
       "category_details_id": categoryDetailsId.value.toString(),
       "account_id": accountId.value.toString(),
-      "p_type": 1.toString(),
+      "p_type": 2.toString(),
       "p_money": moneyAccount.value.text,
       "p_explanation": descriptionAccount.value.text,
       "p_date": dateController.value.text,

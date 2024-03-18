@@ -1,4 +1,3 @@
-import 'package:misamoneykeeper_flutter/controller/splash_view_model.dart';
 import 'package:misamoneykeeper_flutter/server/globs.dart';
 import 'package:misamoneykeeper_flutter/server/service_call.dart';
 import 'package:misamoneykeeper_flutter/utility/export.dart';
@@ -7,27 +6,17 @@ import 'package:misamoneykeeper_flutter/view/auth/login_view.dart';
 class SignUpVM extends GetxController {
   final txtEmail = TextEditingController().obs;
   final txtPassword = TextEditingController().obs;
+  final txtConfirmPass = TextEditingController().obs;
   final txtTenDem = TextEditingController().obs;
   final txtTen = TextEditingController().obs;
   final txtSDT = TextEditingController().obs;
 
   final isShowPasswordLogin = false.obs;
+  final isShowConfirmPassLogin = false.obs;
   final isLoading = false.obs;
-
-  @override
-  void onInit() {
-    super.onInit();
-    txtTenDem.value.text = "Thanh";
-    txtTen.value.text = "Thiện";
-    txtEmail.value.text = "thanhthien2000@gmail.com";
-    txtSDT.value.text = "0956735363";
-    txtPassword.value.text = "thanhthien2000";
-  }
 
   void serviceCallSignUp() async {
     isLoading(true);
-    print(txtTenDem.value.text);
-    print(txtPassword.value.text);
     await ServiceCall.post({
       "first_name": txtTenDem.value.text,
       "last_name": txtTen.value.text,
@@ -41,7 +30,6 @@ class SignUpVM extends GetxController {
     }, SVKey.svSignUp, withSuccess: (resObj) async {
       isLoading(false);
       if (resObj[KKey.status] == 1) {
-        var payload = resObj[KKey.payload] as Map? ?? {};
         Get.to(() => const LoginView(), transition: Transition.leftToRight);
         Get.snackbar("MiSa", "Bạn đã đăng kí thành công");
       }
@@ -53,5 +41,9 @@ class SignUpVM extends GetxController {
 
   void showPassword() {
     isShowPasswordLogin.value = !isShowPasswordLogin.value;
+  }
+
+  void showConfirmPass() {
+    isShowConfirmPassLogin.value = !isShowConfirmPassLogin.value;
   }
 }

@@ -10,7 +10,6 @@ class PayViewModel extends GetxController {
   var categoryTitle = ''.obs;
   var categoryDetailsId = 0.obs;
   var isLoading = false.obs;
-
   // Tài khoản
   var accountIcon = 0.obs;
   var accountTitle = ''.obs;
@@ -66,6 +65,7 @@ class PayViewModel extends GetxController {
     }, SVKey.svUpdatePlay, isToken: true, withSuccess: (resObj) async {
       if (resObj[KKey.status] == 1) {
         clean();
+
         Get.snackbar(appname, "Bạn đã cập nhật khoản chi thành công");
       }
     }, failure: (err) async {

@@ -5,12 +5,7 @@ class StatusModel {
   int? sumMoney;
   List<CategoryDetails>? categoryDetails;
 
-  StatusModel(
-      {categoryId,
-      caName,
-      caImage,
-      sumMoney,
-      categoryDetails});
+  StatusModel({categoryId, caName, caImage, sumMoney, categoryDetails});
 
   StatusModel.fromJson(Map<String, dynamic> json) {
     categoryId = json['category_id'];
@@ -48,12 +43,7 @@ class CategoryDetails {
   List<Pay>? pay;
 
   CategoryDetails(
-      {categoryDetailsId,
-      categoryId,
-      cadName,
-      cadImage,
-      sumMoney,
-      pay});
+      {categoryDetailsId, categoryId, cadName, cadImage, sumMoney, pay});
 
   CategoryDetails.fromJson(Map<String, dynamic> json) {
     categoryDetailsId = json['category_details_id'];

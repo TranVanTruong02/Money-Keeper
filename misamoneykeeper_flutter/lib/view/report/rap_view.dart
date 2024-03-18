@@ -90,7 +90,6 @@ class _RapViewState extends State<RapView> with TickerProviderStateMixin {
         interval = maxValue / 4;
         interval = (interval ~/ 10) * 10.0;
       }
-
       setState(() {});
     } else {
       setState(() {
@@ -137,7 +136,7 @@ class _RapViewState extends State<RapView> with TickerProviderStateMixin {
             // Ví dụ: ListView.builder để hiển thị danh sách các tài khoản
 
             hasZeroValue = data.any((element) =>
-                element.pTotalExpense != 0 && element.pTotalRevenue != 0);
+                element.pTotalExpense != 0 || element.pTotalRevenue != 0);
             return SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,

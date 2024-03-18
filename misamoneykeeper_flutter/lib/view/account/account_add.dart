@@ -141,6 +141,12 @@ class _AddAccountPageState extends State<AccountAdd> {
                             child: TextFormField(
                               controller:
                                   accountAddVM.descriptionController.value,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Vui lòng nhập diễn giải';
+                                }
+                                return null;
+                              },
                               decoration: const InputDecoration(
                                 contentPadding: EdgeInsets.symmetric(
                                     horizontal: 15, vertical: 5),

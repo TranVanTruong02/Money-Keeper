@@ -85,8 +85,8 @@ class _CurrentFinancialState extends State<CurrentFinancial> {
                 child: Column(
                   children: [
                     ReportRow(
-                        title: "Sử dụng (${data.length} tài khoản)",
-                        money: sum),
+                        title: "Sử dụng (${listData1.length} tài khoản)",
+                        money: sum2),
                     const Divider(
                       height: 1,
                       thickness: 1,
@@ -94,7 +94,7 @@ class _CurrentFinancialState extends State<CurrentFinancial> {
                     ListView.separated(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: data.length,
+                      itemCount: listData1.length,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 5),
                       separatorBuilder: (context, index) {
@@ -113,7 +113,7 @@ class _CurrentFinancialState extends State<CurrentFinancial> {
                               padding: const EdgeInsets.all(8),
                               decoration: const BoxDecoration(
                                   color: Colors.amber, shape: BoxShape.circle),
-                              child: data[index].acType == 1
+                              child: listData1[index].acType == 1
                                   ? const Icon(
                                       Icons.account_balance_wallet,
                                       size: 25,
@@ -129,14 +129,14 @@ class _CurrentFinancialState extends State<CurrentFinancial> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                ("${data[index].acName}")
+                                ("${listData1[index].acName}")
                                     .text
                                     .size(16)
                                     .color(Colors.black)
                                     .fontFamily(sansBold)
                                     .make(),
                                 3.heightBox,
-                                formatCurrency(data[index].acMoney)
+                                formatCurrency(listData1[index].acMoney)
                                     .text
                                     .size(14)
                                     .fontFamily(sansBold)
@@ -186,13 +186,14 @@ class _CurrentFinancialState extends State<CurrentFinancial> {
                                   if (value == 1) {
                                     Get.to(
                                         () => AccountUpdate(
-                                            accountModel: data[index]),
+                                            accountModel: listData1[index]),
                                         transition: Transition.rightToLeft);
                                   } else if (value == 2) {
                                     showDialog(
                                         context: context,
                                         builder: (context) => ExitDialog(
-                                              accountId: data[index].accountId!,
+                                              accountId:
+                                                  listData1[index].accountId!,
                                             ));
                                   }
                                 });
@@ -217,8 +218,8 @@ class _CurrentFinancialState extends State<CurrentFinancial> {
                       color: Colors.grey[300],
                     ),
                     ReportRow(
-                        title: "Sử dụng (${data.length} tài khoản)",
-                        money: sum),
+                        title: "Sử dụng (${listData.length} tài khoản)",
+                        money: sum1),
                     const Divider(
                       height: 1,
                       thickness: 1,
@@ -226,7 +227,7 @@ class _CurrentFinancialState extends State<CurrentFinancial> {
                     ListView.separated(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: data.length,
+                      itemCount: listData.length,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 5),
                       separatorBuilder: (context, index) {
@@ -245,7 +246,7 @@ class _CurrentFinancialState extends State<CurrentFinancial> {
                               padding: const EdgeInsets.all(8),
                               decoration: const BoxDecoration(
                                   color: Colors.amber, shape: BoxShape.circle),
-                              child: data[index].acType == 1
+                              child: listData[index].acType == 1
                                   ? const Icon(
                                       Icons.account_balance_wallet,
                                       size: 25,
@@ -261,14 +262,14 @@ class _CurrentFinancialState extends State<CurrentFinancial> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                ("${data[index].acName}")
+                                ("${listData[index].acName}")
                                     .text
                                     .size(16)
                                     .color(Colors.black)
                                     .fontFamily(sansBold)
                                     .make(),
                                 3.heightBox,
-                                formatCurrency(data[index].acMoney)
+                                formatCurrency(listData[index].acMoney)
                                     .text
                                     .size(14)
                                     .fontFamily(sansBold)
@@ -318,13 +319,14 @@ class _CurrentFinancialState extends State<CurrentFinancial> {
                                   if (value == 1) {
                                     Get.to(
                                         () => AccountUpdate(
-                                            accountModel: data[index]),
+                                            accountModel: listData[index]),
                                         transition: Transition.rightToLeft);
                                   } else if (value == 2) {
                                     showDialog(
                                         context: context,
                                         builder: (context) => ExitDialog(
-                                              accountId: data[index].accountId!,
+                                              accountId:
+                                                  listData[index].accountId!,
                                             ));
                                   }
                                 });

@@ -22,6 +22,7 @@ class Migration(migrations.Migration):
                 ('ca_status', models.IntegerField(default=1, help_text='1: active, 2: deleted')),
                 ('ca_created_date', models.DateTimeField(auto_now_add=True)),
                 ('ca_modify_date', models.DateTimeField(auto_now=True)),
+                ('ca_type', models.PositiveIntegerField(default=1, help_text='1: Chi tiền, 2: Thu tiền, ...'))
             ],
             options={
                 'db_table': 'Category',

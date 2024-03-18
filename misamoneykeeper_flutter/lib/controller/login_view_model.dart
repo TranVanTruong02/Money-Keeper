@@ -10,13 +10,6 @@ class LoginViewModel extends GetxController {
 
   final isLoading = false.obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-    txtEmail.value.text = "tuminhhieu111@gmail.com";
-    txtPassword.value.text = "123456";
-  }
-
   void serviceCallLogin() {
     isLoading(true);
     // Gửi yêu cầu post vs các tham số, đường dẫn, thành công, thất bại

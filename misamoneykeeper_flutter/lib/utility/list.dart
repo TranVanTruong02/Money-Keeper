@@ -7,7 +7,7 @@ const textLisReport = [
   phantichchitieu,
   phantichthu,
 ];
-
+const textAdd = ['Chi tiền', 'Thu tiền'];
 const iconListReport = [
   icReport_1,
   icReport_2,

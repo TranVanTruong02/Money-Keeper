@@ -1,6 +1,7 @@
 import 'package:misamoneykeeper_flutter/controller/pay_account_view_model.dart';
 import 'package:misamoneykeeper_flutter/controller/collect_view_model.dart';
 import 'package:misamoneykeeper_flutter/controller/pay_view_model.dart';
+import 'package:misamoneykeeper_flutter/model/account_model.dart';
 import 'package:misamoneykeeper_flutter/server/loading_indicator.dart';
 import 'package:misamoneykeeper_flutter/utility/export.dart';
 
@@ -29,9 +30,15 @@ class PayAccountDetails extends StatelessWidget {
             );
           } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
             var data = snapshot.data!;
+            List<AccountModel> listData = [];
+            for (var element in data) {
+              if (element.acType! == 1 || element.acType! == 2) {
+                listData.add(element);
+              }
+            }
             return ListView.separated(
               physics: const BouncingScrollPhysics(),
-              itemCount: data.length,
+              itemCount: listData.length,
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               separatorBuilder: (context, index) {
                 return const Divider(
@@ -64,14 +71,14 @@ class PayAccountDetails extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ("${data[index].acName}")
+                        ("${listData[index].acName}")
                             .text
                             .size(16)
                             .color(Colors.black45)
                             .fontFamily(sansBold)
                             .make(),
                         3.heightBox,
-                        formatCurrency(data[index].acMoney)
+                        formatCurrency(listData[index].acMoney)
                             .text
                             .size(14)
                             .fontFamily(sansRegular)
@@ -80,7 +87,7 @@ class PayAccountDetails extends StatelessWidget {
                       ],
                     ),
                     const Spacer(),
-                    data[index].accountId == payVM.accountId.value
+                    listData[index].accountId == payVM.accountId.value
                         ? const Icon(
                             Icons.check_box_rounded,
                             color: Colors.blue,
@@ -94,13 +101,13 @@ class PayAccountDetails extends StatelessWidget {
                     .make()
                     .onTap(() {
                   if (type == 1) {
-                    payVM.accountIcon.value = data[index].acType!;
-                    payVM.accountTitle.value = data[index].acName!;
-                    payVM.accountId.value = data[index].accountId!;
+                    payVM.accountIcon.value = listData[index].acType!;
+                    payVM.accountTitle.value = listData[index].acName!;
+                    payVM.accountId.value = listData[index].accountId!;
                   } else {
-                    payVM1.accountIcon.value = data[index].acType!;
-                    payVM1.accountTitle.value = data[index].acName!;
-                    payVM1.accountId.value = data[index].accountId!;
+                    payVM1.accountIcon.value = listData[index].acType!;
+                    payVM1.accountTitle.value = listData[index].acName!;
+                    payVM1.accountId.value = listData[index].accountId!;
                   }
 
                   Get.back();

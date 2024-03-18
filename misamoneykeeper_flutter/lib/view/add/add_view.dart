@@ -6,6 +6,7 @@ import 'package:misamoneykeeper_flutter/view/history/history_view.dart';
 class AddView extends StatefulWidget {
   final bool? isCheck;
   final int? payId;
+  final int? pType;
   final String? categoryIcon;
   final String? categoryTitle;
   final int? categoryDetailsId;
@@ -28,7 +29,8 @@ class AddView extends StatefulWidget {
       this.accountId,
       this.dateController,
       this.moneyAccount,
-      this.descriptionAccount});
+      this.descriptionAccount,
+      this.pType});
 
   @override
   AddViewState createState() => AddViewState();
@@ -40,6 +42,17 @@ class AddViewState extends State<AddView> {
   int position = 0;
   String pop = "Thêm chi tiết";
   var title = 'Chi tiền'.obs;
+  @override
+  void initState() {
+    super.initState();
+    if (widget.pType != null) {
+      position = widget.pType! - 1;
+    } else {
+      position = 0;
+    }
+
+    setState(() {});
+  }
 
   void changePosition(int index) {
     setState(() {
@@ -116,11 +129,9 @@ class AddViewState extends State<AddView> {
                 switch (value) {
                   case 1:
                     changePosition(0);
-                    title.value = "Chi tiền";
                     break;
                   case 2:
                     changePosition(1);
-                    title.value = "Thu tiền";
                     break;
                 }
               });
@@ -128,13 +139,12 @@ class AddViewState extends State<AddView> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Obx(
-                  () => title.value.text
-                      .size(18)
-                      .fontFamily(sansBold)
-                      .white
-                      .make(),
-                ),
+                textAdd[position]
+                    .text
+                    .size(18)
+                    .fontFamily(sansBold)
+                    .white
+                    .make(),
                 const SizedBox(width: 5),
                 Image.asset(
                   icArrowDown,
@@ -161,7 +171,7 @@ class AddViewState extends State<AddView> {
           children: [
             PayPay(
               isCheck: widget.isCheck,
-              payId:  widget.payId,
+              payId: widget.payId,
               categoryIcon: widget.categoryIcon,
               categoryTitle: widget.categoryTitle,
               categoryDetailsId: widget.categoryDetailsId,
@@ -174,7 +184,7 @@ class AddViewState extends State<AddView> {
             ),
             PayCollect(
               isCheck: widget.isCheck,
-              payId:  widget.payId,
+              payId: widget.payId,
               categoryIcon: widget.categoryIcon,
               categoryTitle: widget.categoryTitle,
               categoryDetailsId: widget.categoryDetailsId,

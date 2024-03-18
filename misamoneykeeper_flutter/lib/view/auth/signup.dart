@@ -1,5 +1,8 @@
+import 'package:flutter/gestures.dart';
+import 'package:misamoneykeeper_flutter/common/validator.dart';
 import 'package:misamoneykeeper_flutter/controller/sign_up_view_model.dart';
 import 'package:misamoneykeeper_flutter/utility/export.dart';
+import 'package:misamoneykeeper_flutter/view/auth/login_view.dart';
 
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});
@@ -11,6 +14,14 @@ class SignUpView extends StatefulWidget {
 class _SignUpViewState extends State<SignUpView> {
   final authVM = Get.put(SignUpVM());
   final _formKey = GlobalKey<FormState>();
+  bool validatePassword(String password) {
+    // Biểu thức chính quy kiểm tra mật khẩu
+    RegExp passwordRegex =
+        RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+
+    // Kiểm tra xem mật khẩu có khớp với biểu thức chính quy hay không
+    return passwordRegex.hasMatch(password);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,12 +121,7 @@ class _SignUpViewState extends State<SignUpView> {
                     const SizedBox(height: 15),
                     TextFormField(
                       controller: authVM.txtEmail.value,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Vui lòng nhập email';
-                        }
-                        return null;
-                      },
+                      validator: EmailValidator.validate,
                       decoration: InputDecoration(
                         hintText: 'Email',
                         contentPadding: const EdgeInsets.all(10),
@@ -128,12 +134,7 @@ class _SignUpViewState extends State<SignUpView> {
                     const SizedBox(height: 15),
                     TextFormField(
                       controller: authVM.txtSDT.value,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Vui lòng nhập số điện thoại';
-                        }
-                        return null;
-                      },
+                      validator: PhoneNumberValidator.validate,
                       decoration: InputDecoration(
                         hintText: 'Số điện thoại',
                         contentPadding: const EdgeInsets.all(10),
@@ -151,11 +152,14 @@ class _SignUpViewState extends State<SignUpView> {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Vui lòng nhập mật khẩu';
+                          } else if (!validatePassword(value)) {
+                            return 'Mật khẩu phải có ít nhất 8 kí tự bao gồm ký tự chữ hoa, chữ thường, chữ số';
                           }
                           return null;
                         },
                         decoration: InputDecoration(
                           hintText: 'Mật khẩu',
+                          errorMaxLines: 3,
                           suffixIcon: IconButton(
                             onPressed: () {
                               authVM.showPassword();
@@ -174,28 +178,37 @@ class _SignUpViewState extends State<SignUpView> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 25),
-                    RichText(
-                      text: const TextSpan(
-                        text:
-                            'Bằng cách bấn vào nút đăng ký, bạn đã đồng ký với',
-                        style: TextStyle(color: Colors.black, fontSize: 15),
-                        children: [
-                          TextSpan(
-                            text: ' thoả thuận sử dụng',
-                            style: TextStyle(color: Colors.blue),
+                    const SizedBox(height: 15),
+                    Obx(
+                      () => TextFormField(
+                        controller: authVM.txtConfirmPass.value,
+                        obscureText: !authVM.isShowConfirmPassLogin.value,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Vui lòng nhập xác nhận mật khẩu';
+                          } else if (value != authVM.txtPassword.value.text) {
+                            return 'Mật khẩu xác nhận không khớp';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'Xác nhận mật khẩu',
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              authVM.showConfirmPass();
+                            },
+                            icon: Icon(authVM.isShowConfirmPassLogin.value
+                                ? Icons.visibility
+                                : Icons.visibility_off),
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
                           ),
-                          TextSpan(
-                            text: ' và ',
+                          contentPadding: const EdgeInsets.all(10),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(6),
+                            borderSide: const BorderSide(),
                           ),
-                          TextSpan(
-                            text: 'Chính sách quyền riêng tư',
-                            style: TextStyle(color: Colors.blue),
-                          ),
-                          TextSpan(
-                            text: ' của MISA ',
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                     const SizedBox(height: 25),
@@ -205,7 +218,9 @@ class _SignUpViewState extends State<SignUpView> {
                           flex: 1,
                           child: ElevatedButton(
                             onPressed: () {
-                              authVM.serviceCallSignUp();
+                              if (_formKey.currentState!.validate()) {
+                                authVM.serviceCallSignUp();
+                              }
                             },
                             style: ElevatedButton.styleFrom(
                               splashFactory: NoSplash.splashFactory,
@@ -225,56 +240,64 @@ class _SignUpViewState extends State<SignUpView> {
                     ),
                     const SizedBox(height: 15),
                     RichText(
-                      text: const TextSpan(
+                      text: TextSpan(
                         text: 'Bạn đã có tài khoản? ',
-                        style: TextStyle(color: Colors.black),
+                        style: const TextStyle(color: Colors.black),
                         children: [
                           TextSpan(
                             text: 'Đăng nhập ngay',
-                            style: TextStyle(color: Colors.blue),
+                            style: const TextStyle(color: Colors.blue),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const LoginView()));
+                              },
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 15),
-                    const Row(
-                      children: [
-                        Expanded(
-                          child: Divider(
-                            color: Colors.grey,
-                            endIndent: 15,
-                            thickness: 0.7,
-                          ),
-                        ),
-                        Text('Hoặc đăng nhập bằng'),
-                        Expanded(
-                          child: Divider(
-                            color: Colors.grey,
-                            indent: 15,
-                            thickness: 0.7,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 15),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          imgFacebook,
-                          height: 35,
-                          width: 35,
-                        ),
-                        const SizedBox(
-                          width: 30,
-                        ),
-                        Image.asset(
-                          imgGoogle,
-                          height: 35,
-                          width: 35,
-                        ),
-                      ],
-                    ),
+                    // const SizedBox(height: 15),
+                    // const Row(
+                    //   children: [
+                    //     Expanded(
+                    //       child: Divider(
+                    //         color: Colors.grey,
+                    //         endIndent: 15,
+                    //         thickness: 0.7,
+                    //       ),
+                    //     ),
+                    //     Text('Hoặc đăng nhập bằng'),
+                    //     Expanded(
+                    //       child: Divider(
+                    //         color: Colors.grey,
+                    //         indent: 15,
+                    //         thickness: 0.7,
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                    // const SizedBox(height: 15),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     Image.asset(
+                    //       imgFacebook,
+                    //       height: 35,
+                    //       width: 35,
+                    //     ),
+                    //     const SizedBox(
+                    //       width: 30,
+                    //     ),
+                    //     Image.asset(
+                    //       imgGoogle,
+                    //       height: 35,
+                    //       width: 35,
+                    //     ),
+                    //   ],
+                    // ),
                   ],
                 ),
               ),

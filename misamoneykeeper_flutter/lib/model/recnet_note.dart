@@ -5,12 +5,7 @@ class RecnetNote {
   int? pMoneyCollect;
   List<Category>? category;
 
-  RecnetNote(
-      {pDate,
-      pMoneyType,
-      pMoneyPay,
-      pMoneyCollect,
-      category});
+  RecnetNote({pDate, pMoneyType, pMoneyPay, pMoneyCollect, category});
 
   RecnetNote.fromJson(Map<String, dynamic> json) {
     pDate = json['p_date'];
@@ -27,6 +22,7 @@ class RecnetNote {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
+
     data['p_date'] = pDate;
     data['p_money_type'] = pMoneyType;
     data['p_money_pay'] = pMoneyPay;

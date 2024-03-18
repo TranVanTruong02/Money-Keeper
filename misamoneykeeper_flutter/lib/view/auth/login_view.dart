@@ -1,3 +1,4 @@
+import 'package:misamoneykeeper_flutter/common/validator.dart';
 import 'package:misamoneykeeper_flutter/view/auth/signup.dart';
 import 'package:misamoneykeeper_flutter/utility/export.dart';
 import 'package:misamoneykeeper_flutter/controller/login_view_model.dart';
@@ -69,14 +70,9 @@ class _LoginViewState extends State<LoginView> {
                     children: [
                       TextFormField(
                         controller: authVM.txtEmail.value,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Vui lòng nhập số điện thoại hoặc email';
-                          }
-                          return null;
-                        },
+                        validator: EmailValidator.validate,
                         decoration: InputDecoration(
-                          hintText: 'Số điện thoại hoặc email',
+                          hintText: 'Email',
                           contentPadding: const EdgeInsets.all(10),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(6),
@@ -155,7 +151,7 @@ class _LoginViewState extends State<LoginView> {
                               onPressed: () {
                                 Get.to(() => const SignUpView());
                               },
-                              child: "Đăng kí"
+                              child: "Đăng ký"
                                   .text
                                   .size(16)
                                   .fontFamily(sansBold)
@@ -163,48 +159,48 @@ class _LoginViewState extends State<LoginView> {
                                   .make())
                         ],
                       ),
-                      const SizedBox(height: 20),
-                      const Row(
-                        children: [
-                          Expanded(
-                            child: Divider(
-                              color: Colors.grey,
-                              endIndent: 15,
-                              thickness: 0.7,
-                            ),
-                          ),
-                          Text(
-                            'Hoặc đăng nhập bằng',
-                            style: TextStyle(fontSize: 13),
-                          ),
-                          Expanded(
-                            child: Divider(
-                              color: Colors.grey,
-                              indent: 15,
-                              thickness: 0.7,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            imgFacebook,
-                            height: 35,
-                            width: 35,
-                          ),
-                          const SizedBox(
-                            width: 30,
-                          ),
-                          Image.asset(
-                            imgGoogle,
-                            height: 35,
-                            width: 35,
-                          ),
-                        ],
-                      ),
+                      // const SizedBox(height: 20),
+                      // const Row(
+                      //   children: [
+                      //     Expanded(
+                      //       child: Divider(
+                      //         color: Colors.grey,
+                      //         endIndent: 15,
+                      //         thickness: 0.7,
+                      //       ),
+                      //     ),
+                      //     Text(
+                      //       'Hoặc đăng nhập bằng',
+                      //       style: TextStyle(fontSize: 13),
+                      //     ),
+                      //     Expanded(
+                      //       child: Divider(
+                      //         color: Colors.grey,
+                      //         indent: 15,
+                      //         thickness: 0.7,
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+                      // const SizedBox(height: 20),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: [
+                      //     Image.asset(
+                      //       imgFacebook,
+                      //       height: 35,
+                      //       width: 35,
+                      //     ),
+                      //     const SizedBox(
+                      //       width: 30,
+                      //     ),
+                      //     Image.asset(
+                      //       imgGoogle,
+                      //       height: 35,
+                      //       width: 35,
+                      //     ),
+                      //   ],
+                      // ),
                     ],
                   ),
                 ),
