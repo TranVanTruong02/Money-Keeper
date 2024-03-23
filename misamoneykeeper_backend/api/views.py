@@ -65,7 +65,8 @@ class UserRegisterView(APIView):
         email = data.get('email')
 
         if get_user_model().objects.filter(email=email).exists():
-                return Response({
+                return JsonResponse({
+                    'status': 0,
                     'error_message': 'Email này đã được đăng ký.',
                     'error_code': 400,
                 }, status=status.HTTP_400_BAD_REQUEST)
@@ -201,17 +202,23 @@ class PayAddView(APIView):
                 else:
                     serializer = PayAddSerializer(data=request.data)
                     if serializer.is_valid():
-                        pay = serializer.save()
-                        # Cập nhập lại số tiền trong tài khoản
                         account = Account.objects.get(account_id=account_id)
-                        if data.get('p_type') == "1":
-                            money = account.ac_money - int(data.get('p_money'))
-                            account.ac_money = money
-                            account.save()
+                        if account.ac_money < int(data.get('p_money')) and data.get('p_type') == "1":
+                            return JsonResponse({
+                                    'status': 0,     
+                                    'error_message': 'Số dư không đủ để thực hiện',
+                                    'error_code': 400,
+                            }, status=status.HTTP_400_BAD_REQUEST)
                         else:
-                            money = account.ac_money + int(data.get('p_money'))
-                            account.ac_money = money
-                            account.save()
+                            pay = serializer.save()
+                            if data.get('p_type') == "1":
+                                money = account.ac_money - int(data.get('p_money'))
+                                account.ac_money = money
+                                account.save() 
+                            else:
+                                money = account.ac_money + int(data.get('p_money'))
+                                account.ac_money = money
+                                account.save()
                         data = {
                             'status': 1,
                             'payload': PayViewSerializer(pay).data,
@@ -261,22 +268,28 @@ class PayUpdateView(APIView):
                         pay = Pay.objects.get(pay_id=pay_id, user_id=user_id, category_details_id=category_details_id, account_id=account_id)
                         serializer = PayAddSerializer(data=request.data)
                         if serializer.is_valid():
-                            pay.p_type = data.get('p_type')
-                            pay.p_money = data.get('p_money')
-                            pay.p_explanation = data.get('p_explanation')
-                            pay.p_date = data.get('p_date')
-                            pay.save()
-
-                            # Cập nhập lại số tiền trong tài khoản
                             account = Account.objects.get(account_id=account_id)
-                            if data.get('p_type') == 1:
-                                money = account.ac_money + int(money_old) - int(data.get('p_money'))
-                                account.ac_money = money
-                                account.save()
+                            if account.ac_money < int(data.get('p_money')) and data.get('p_type') == "1":
+                                return JsonResponse({
+                                    'status': 0,     
+                                    'error_message': 'Số dư không đủ để thực hiện',
+                                    'error_code': 400,
+                                }, status=status.HTTP_400_BAD_REQUEST)
                             else:
-                                money = account.ac_money - int(money_old) + int(data.get('p_money'))
-                                account.ac_money = money
-                                account.save()
+                                pay.p_type = data.get('p_type')
+                                pay.p_money = data.get('p_money')
+                                pay.p_explanation = data.get('p_explanation')
+                                pay.p_date = data.get('p_date')
+                                pay.save()
+
+                                if data.get('p_type') == 1:
+                                    money = account.ac_money + int(money_old) - int(data.get('p_money'))
+                                    account.ac_money = money
+                                    account.save()
+                                else:
+                                    money = account.ac_money - int(money_old) + int(data.get('p_money'))
+                                    account.ac_money = money
+                                    account.save()
                             data = {
                                 'status': 1,
                                 'payload': PayViewSerializer(pay).data,

@@ -1,4 +1,4 @@
-import 'package:misamoneykeeper_flutter/common/exit_dialog.dart';
+import 'package:misamoneykeeper_flutter/common/delete_dialog.dart';
 import 'package:misamoneykeeper_flutter/common/report_row.dart';
 import 'package:misamoneykeeper_flutter/controller/account_view_model.dart';
 import 'package:misamoneykeeper_flutter/controller/current_financial_view_model.dart';
@@ -56,12 +56,10 @@ class _CurrentFinancialState extends State<CurrentFinancial> {
           int sum = 0;
           int sum1 = 0;
           int sum2 = 0;
-          int type = 0;
           List<AccountModel> listData = [];
           List<AccountModel> listData1 = [];
           for (var element in data!) {
             sum += element.acMoney!;
-            type = element.acType!;
             if (element.acType! == 3) {
               listData.add(element);
             }

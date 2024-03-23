@@ -1,9 +1,12 @@
 import 'package:intl/intl.dart';
+import 'package:misamoneykeeper_flutter/common/chart_data.dart';
 import 'package:misamoneykeeper_flutter/controller/status_collect_view_model.dart';
+import 'package:misamoneykeeper_flutter/model/charts_data.dart';
 import 'package:misamoneykeeper_flutter/server/globs.dart';
 import 'package:misamoneykeeper_flutter/server/loading_indicator.dart';
 import 'package:misamoneykeeper_flutter/utility/export.dart';
 import 'package:misamoneykeeper_flutter/view/add/add_view.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class StatusCollect extends StatefulWidget {
   const StatusCollect({super.key});
@@ -42,9 +45,69 @@ class _StatusCollectState extends State<StatusCollect> {
                 sum += element.sumMoney!;
               }
               var money = formatCurrency(sum);
-
+              // Tạo mảng dữ liệu chart data
+              final List<ChartData> chartData = data.map((collect) {
+                return ChartData(collect.caName!, collect.sumMoney!.toDouble(),
+                    getRandomColor());
+              }).toList();
               return Column(
                 children: [
+                  10.heightBox,
+                  SizedBox(
+                    height: context.screenHeight * 0.25,
+                    child: SfCircularChart(
+                      series: <CircularSeries>[
+                        DoughnutSeries<ChartData, String>(
+                          dataSource: chartData,
+                          pointColorMapper: (ChartData data, _) => data.color,
+                          xValueMapper: (ChartData data, _) => data.x,
+                          yValueMapper: (ChartData data, _) => data.y,
+                        ),
+                      ],
+                      legend: Legend(
+                        isVisible: true,
+                        position: LegendPosition.right,
+                        legendItemBuilder:
+                            (legendText, series, point, seriesIndex) {
+                          final ChartData data = chartData[seriesIndex];
+                          return Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Container(
+                                width: 15,
+                                height: 15,
+                                decoration: BoxDecoration(
+                                    color: data.color,
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(15))),
+                              ),
+                              5.widthBox,
+                              data.x.text
+                                  .size(14)
+                                  .fontFamily(sansRegular)
+                                  .color(Colors.black)
+                                  .make(),
+                              5.widthBox,
+                              "(${formatCurrency(data.y.toInt())})"
+                                  .text
+                                  .size(14)
+                                  .fontFamily(sansRegular)
+                                  .color(Colors.black)
+                                  .make(),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                  10.heightBox,
+                  const Divider(
+                    height: 1,
+                    color: Colors.black12,
+                    indent: 10,
+                    endIndent: 10,
+                    thickness: 1,
+                  ),
                   10.heightBox,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

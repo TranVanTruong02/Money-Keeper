@@ -94,6 +94,7 @@ class _SplitMoneyViewState extends State<SplitMoneyView> {
                           baseOffset: 0,
                           extentOffset: _moneyController.value.text.length),
                       inputFormatters: <TextInputFormatter>[
+                        LengthLimitingTextInputFormatter(13),
                         FilteringTextInputFormatter.digitsOnly,
                         CurrencyInputFormatter(
                             thousandSeparator: ThousandSeparator.Period,

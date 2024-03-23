@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:date_format/date_format.dart';
 import 'package:flutter/services.dart';
 import 'package:misamoneykeeper_flutter/controller/pay_view_model.dart';
@@ -103,6 +105,10 @@ class _PayAccountState extends State<PayPay> {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Vui lòng nhập số tiền';
+                          }
+                          double number = double.parse(value);
+                          if (number >= 50000000) {
+                            return 'Số nhập vào phải nhỏ hơn 50 triệu.';
                           }
                           return null;
                         },
@@ -273,12 +279,6 @@ class _PayAccountState extends State<PayPay> {
                       10.heightBox,
                       TextFormField(
                         controller: payVM.descriptionAccount.value,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Vui lòng nhập diễn giải';
-                          }
-                          return null;
-                        },
                         decoration: const InputDecoration(
                           contentPadding:
                               EdgeInsets.symmetric(horizontal: 15, vertical: 5),

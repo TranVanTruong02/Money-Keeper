@@ -84,12 +84,14 @@ class _RapViewState extends State<RapView> with TickerProviderStateMixin {
       if (maxExpense > maxRevenue) {
         maxValue = maxExpense / 1000; // Chia cho 1000 nếu cần đơn vị là nghìn
         interval = maxValue / 4;
-        interval = (interval ~/ 10) * 10.0;
+        interval = interval <= 10.0 ? 1.0 : (interval ~/ 10) * 10.0;
+        print("a $interval");
       } else {
         maxValue = maxRevenue / 1000; // Chia cho 1000 nếu cần đơn vị là nghìn
         interval = maxValue / 4;
-        interval = (interval ~/ 10) * 10.0;
+        interval = interval <= 10.0 ? 1.0 : (interval ~/ 10) * 10.0;
       }
+      print(interval);
       setState(() {});
     } else {
       setState(() {

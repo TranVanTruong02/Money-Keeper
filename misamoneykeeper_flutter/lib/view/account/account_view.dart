@@ -1,4 +1,4 @@
-import 'package:misamoneykeeper_flutter/common/exit_dialog.dart';
+import 'package:misamoneykeeper_flutter/common/delete_dialog.dart';
 import 'package:misamoneykeeper_flutter/common/report_row.dart';
 import 'package:misamoneykeeper_flutter/controller/account_view_model.dart';
 import 'package:misamoneykeeper_flutter/controller/splash_view_model.dart';
@@ -51,17 +51,6 @@ class _AccountViewState extends State<AccountView> {
         ),
         backgroundColor: Colors.blue,
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.search,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              splashVM.logout();
-            },
-          ),
-        ],
       ),
       body: StreamBuilder<List<AccountModel>?>(
         stream: accountViewModel.dataStream,

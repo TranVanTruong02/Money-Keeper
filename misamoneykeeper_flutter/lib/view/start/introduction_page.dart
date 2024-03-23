@@ -35,20 +35,6 @@ class _IntroductionPageState extends State<IntroductionPage> {
     return Colors.blue;
   }
 
-  // String? email = '';
-  // String url = "http://10.0.2.2:8000/api/misamoneykeeper/users/1";
-  // void getUser() async {
-  //   final uri = Uri.parse(url);
-  //   final response = await http.get(uri);
-  //   var userData = json.decode(response.body);
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   prefs.setString(
-  //       "name", userData['first_name'] + ' ' + userData['last_name']);
-  //   prefs.setString("email", userData['email']);
-  //   prefs.setInt("coin", userData['number_coins']);
-  //   email = prefs.getString("name");
-  // }
-
   @override
   void initState() {
     super.initState();
@@ -145,27 +131,27 @@ class _IntroductionPageState extends State<IntroductionPage> {
                           style: const TextStyle(fontSize: 16),
                         ),
                       ),
-                      Container(
-                        alignment: Alignment.bottomRight,
-                        padding: const EdgeInsets.only(right: 5),
-                        child: TextButton(
-                          onPressed: () {},
-                          style: ButtonStyle(
-                            animationDuration: Duration.zero,
-                            foregroundColor: MaterialStateProperty.resolveWith(
-                              getColor,
-                            ),
-                            splashFactory: NoSplash.splashFactory,
-                          ).copyWith(
-                            overlayColor: const MaterialStatePropertyAll(
-                                Colors.transparent),
-                          ),
-                          child: const Text(
-                            'Tiếng Việt',
-                            style: TextStyle(fontSize: 14),
-                          ),
-                        ),
-                      )
+                      // Container(
+                      //   alignment: Alignment.bottomRight,
+                      //   padding: const EdgeInsets.only(right: 5),
+                      //   child: TextButton(
+                      //     onPressed: () {},
+                      //     style: ButtonStyle(
+                      //       animationDuration: Duration.zero,
+                      //       foregroundColor: MaterialStateProperty.resolveWith(
+                      //         getColor,
+                      //       ),
+                      //       splashFactory: NoSplash.splashFactory,
+                      //     ).copyWith(
+                      //       overlayColor: const MaterialStatePropertyAll(
+                      //           Colors.transparent),
+                      //     ),
+                      //     child: const Text(
+                      //       'Tiếng Việt',
+                      //       style: TextStyle(fontSize: 14),
+                      //     ),
+                      //   ),
+                      // )
                     ],
                   ),
                 ),

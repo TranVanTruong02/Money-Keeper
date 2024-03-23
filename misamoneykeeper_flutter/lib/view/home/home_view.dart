@@ -183,22 +183,6 @@ class _HomeViewState extends State<HomeView> {
                             'Tình hình thu chi',
                             style: TextStyle(fontSize: 18.0),
                           ),
-                          Row(
-                            children: [
-                              "Tháng này"
-                                  .text
-                                  .size(14)
-                                  .fontFamily(sansRegular)
-                                  .color(Colors.black54)
-                                  .make(),
-                              2.widthBox,
-                              const Icon(
-                                Icons.arrow_drop_down,
-                                size: 25,
-                                color: Colors.black54,
-                              )
-                            ],
-                          ),
                           10.heightBox,
                           status[0].sum != null && status[0].sum!.isNotEmpty
                               ? SizedBox(

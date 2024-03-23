@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:date_format/date_format.dart';
 import 'package:flutter/services.dart';
 import 'package:misamoneykeeper_flutter/controller/collect_view_model.dart';
@@ -86,290 +88,281 @@ class _PayAccountState extends State<PayCollect> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Obx(
-        () => payVM.isLoading.value == true
+        body: Obx(() => payVM.isLoading.value == true
             ? Center(
                 child: loadingIndicator(),
               )
             : SafeArea(
                 child: SingleChildScrollView(
                     child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 10),
-                      TextFormField(
-                        controller: payVM.moneyAccount.value,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Vui lòng nhập số tiền';
-                          }
-                          return null;
+                key: _formKey,
+                child: Column(
+                  children: [
+                    const SizedBox(height: 10),
+                    TextFormField(
+                      controller: payVM.moneyAccount.value,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Vui lòng nhập số tiền';
+                        }
+                        double number = double.parse(value);
+                        if (number >= 50000000) {
+                          return 'Số nhập vào phải nhỏ hơn 50 triệu.';
+                        }
+                        return null;
+                      },
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(
+                            RegExp(r'^\d+\.?\d{0,2}')),
+                      ],
+                      style: const TextStyle(
+                          color: Colors.green,
+                          fontSize: 16,
+                          fontFamily: sansRegular),
+                      decoration: const InputDecoration(
+                        labelText: 'Số Tiền',
+                        prefixIcon: Icon(Icons.money),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: InkWell(
+                        onTap: () async {
+                          Get.to(() => const CategoryCollect(),
+                              transition: Transition.rightToLeft);
                         },
-                        keyboardType: const TextInputType.numberWithOptions(
-                            decimal: true),
-                        inputFormatters: [
-                          FilteringTextInputFormatter.allow(
-                              RegExp(r'^\d+\.?\d{0,2}')),
-                        ],
-                        style: const TextStyle(
-                            color: Colors.green,
-                            fontSize: 16,
-                            fontFamily: sansRegular),
-                        decoration: const InputDecoration(
-                          labelText: 'Số Tiền',
-                          prefixIcon: Icon(Icons.money),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: InkWell(
-                          onTap: () async {
-                            Get.to(() => const CategoryCollect(),
-                                transition: Transition.rightToLeft);
-                          },
-                          child: Row(
-                            children: [
-                              payVM.categoryIcon.value == ''
-                                  ? Image.asset(
-                                      imgHelp,
-                                      width: 25,
-                                      height: 25,
-                                    )
-                                  : Image.network(
-                                      payVM.categoryIcon.value,
-                                      width: 25,
-                                      height: 25,
-                                    ),
-                              const SizedBox(
-                                width: 15,
-                              ),
-                              Text(
-                                payVM.categoryTitle.value == ''
-                                    ? "Chọn hạng mục"
-                                    : payVM.categoryTitle.value,
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                              const Spacer(),
-                              const Icon(Icons.navigate_next)
-                            ],
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      TextFormField(
-                        controller: payVM.dateController.value,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Vui lòng nhập ngày thực hiện';
-                          }
-                          return null;
-                        },
-                        focusNode: dateFocusNode,
-                        keyboardType: TextInputType.none,
-                        decoration: const InputDecoration(
-                            labelText: 'Ngày thực hiện',
-                            labelStyle: TextStyle(color: Colors.black),
-                            prefixIcon: Icon(
-                              Icons.calendar_month,
-                              color: Colors.black,
-                            ),
-                            enabledBorder:
-                                OutlineInputBorder(borderSide: BorderSide.none),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.blue),
-                            )),
-                        //  readOnly: true,
-                        onTap: () {
-                          datatTimePicker.DatePicker.showDatePicker(
-                            context,
-                            showTitleActions: true,
-                            minTime: DateTime(1900, 1, 1),
-                            maxTime: DateTime.now(),
-                            theme: const datatTimePicker.DatePickerTheme(
-                              containerHeight: 150.0,
-                            ),
-                            onConfirm: (date) {
-                              if (date != null) {
-                                var formatData =
-                                    formatDate(date, [yyyy, '-', mm, '-', dd]);
-                                payVM.dateController.value.text = formatData;
-                                isDateSelected = true;
-                              } else {
-                                var currentDate = DateTime.now();
-                                var formatData = formatDate(
-                                    currentDate, [yyyy, '-', mm, '-', dd]);
-                                payVM.dateController.value.text = formatData;
-                                isDateSelected = false;
-                              }
-                              if (dateFocusNode.hasFocus) {
-                                FocusScope.of(context)
-                                    .requestFocus(FocusNode());
-                              }
-                            },
-                            onChanged: (date) {
-                              if (!isDateSelected) {
-                                var formatData =
-                                    formatDate(date, [yyyy, '-', mm, '-', dd]);
-                                payVM.dateController.value.text = formatData;
-                                FocusScope.of(context).unfocus();
-                              }
-                            },
-                            currentTime: DateTime.now(),
-                            locale: datatTimePicker.LocaleType.vi,
-                          );
-                        },
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      // Chọn tài khoản
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: InkWell(
-                          onTap: () async {
-                            Get.to(() => const PayAccountDetails(type: 2),
-                                transition: Transition.rightToLeft);
-                          },
-                          child: Row(
-                            children: [
-                              payVM.accountIcon.value == 0
-                                  ? const Icon(
-                                      Icons.account_balance_wallet,
-                                      size: 25,
-                                      color: Colors.black,
-                                    )
-                                  : payVM.accountIcon.value == 1
-                                      ? const Icon(
-                                          Icons.account_balance_wallet,
-                                          size: 25,
-                                          color: Colors.black,
-                                        )
-                                      : const Icon(
-                                          Icons.account_balance,
-                                          size: 25,
-                                          color: Colors.black,
-                                        ),
-                              const SizedBox(
-                                width: 15,
-                              ),
-                              Text(
-                                payVM.accountTitle.value == ''
-                                    ? "Chọn tài khoản"
-                                    : payVM.accountTitle.value,
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                              const Spacer(),
-                              const Icon(Icons.navigate_next)
-                            ],
-                          ),
-                        ),
-                      ),
-                      10.heightBox,
-                      TextFormField(
-                        controller: payVM.descriptionAccount.value,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Vui lòng nhập diễn giải';
-                          }
-                          return null;
-                        },
-                        decoration: const InputDecoration(
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                          labelText: 'Diễn giải',
-                          prefixIcon: Icon(Icons.sort),
-                        ),
-                      ),
-
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      widget.isCheck == true
-                          ? Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      SizedBox(
-                                          width: context.screenWidth * 0.4,
-                                          child: ElevatedButton(
-                                            style: ButtonStyle(
-                                              backgroundColor:
-                                                  MaterialStateProperty.all<
-                                                      Color>(Colors.red),
-                                            ),
-                                            onPressed: () {
-                                              payVM.serviceDeletePay(
-                                                  payVM.payId.value);
-                                            },
-                                            child: const Text('Xóa'),
-                                          )),
-                                      SizedBox(
-                                          width: context.screenWidth * 0.4,
-                                          child: ElevatedButton(
-                                            onPressed: () {
-                                              if (payVM.accountTitle.value ==
-                                                  '') {
-                                                Get.snackbar(appname,
-                                                    "Bạn phải chọn tài khoản trước");
-                                              } else if (payVM
-                                                      .categoryTitle.value ==
-                                                  '') {
-                                                Get.snackbar(appname,
-                                                    "Bạn phải chọn danh mục trước");
-                                              } else if (_formKey.currentState!
-                                                  .validate()) {
-                                                payVM.serviceUpdatePay(
-                                                    payVM.payId.value,
-                                                    widget.moneyAccount!);
-                                                setState(() {});
-                                                Navigator.pop(context);
-                                              }
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                                backgroundColor: Colors.blue),
-                                            child: const Text('LƯU'),
-                                          )),
-                                    ],
+                        child: Row(
+                          children: [
+                            payVM.categoryIcon.value == ''
+                                ? Image.asset(
+                                    imgHelp,
+                                    width: 25,
+                                    height: 25,
+                                  )
+                                : Image.network(
+                                    payVM.categoryIcon.value,
+                                    width: 25,
+                                    height: 25,
                                   ),
-                                ],
-                              ),
-                            )
-                          : SizedBox(
-                              width: context.screenWidth * 0.8,
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  if (payVM.accountTitle.value == '') {
-                                    Get.snackbar(appname,
-                                        "Bạn phải chọn tài khoản trước");
-                                  } else if (payVM.categoryTitle.value == '') {
-                                    Get.snackbar(appname,
-                                        "Bạn phải chọn danh mục trước");
-                                  } else if (_formKey.currentState!
-                                      .validate()) {
-                                    payVM.serviceAddPay();
-                                  }
-                                },
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.blue),
-                                child: const Text('Lưu'),
-                              )),
-                    ],
-                  ),
-                )),
-              ),
-      ),
-    );
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            Text(
+                              payVM.categoryTitle.value == ''
+                                  ? "Chọn hạng mục"
+                                  : payVM.categoryTitle.value,
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                            const Spacer(),
+                            const Icon(Icons.navigate_next)
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      controller: payVM.dateController.value,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Vui lòng nhập ngày thực hiện';
+                        }
+                        return null;
+                      },
+                      focusNode: dateFocusNode,
+                      keyboardType: TextInputType.none,
+                      decoration: const InputDecoration(
+                          labelText: 'Ngày thực hiện',
+                          labelStyle: TextStyle(color: Colors.black),
+                          prefixIcon: Icon(
+                            Icons.calendar_month,
+                            color: Colors.black,
+                          ),
+                          enabledBorder:
+                              OutlineInputBorder(borderSide: BorderSide.none),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue),
+                          )),
+                      //  readOnly: true,
+                      onTap: () {
+                        datatTimePicker.DatePicker.showDatePicker(
+                          context,
+                          showTitleActions: true,
+                          minTime: DateTime(1900, 1, 1),
+                          maxTime: DateTime.now(),
+                          theme: const datatTimePicker.DatePickerTheme(
+                            containerHeight: 150.0,
+                          ),
+                          onConfirm: (date) {
+                            if (date != null) {
+                              var formatData =
+                                  formatDate(date, [yyyy, '-', mm, '-', dd]);
+                              payVM.dateController.value.text = formatData;
+                              isDateSelected = true;
+                            } else {
+                              var currentDate = DateTime.now();
+                              var formatData = formatDate(
+                                  currentDate, [yyyy, '-', mm, '-', dd]);
+                              payVM.dateController.value.text = formatData;
+                              isDateSelected = false;
+                            }
+                            if (dateFocusNode.hasFocus) {
+                              FocusScope.of(context).requestFocus(FocusNode());
+                            }
+                          },
+                          onChanged: (date) {
+                            if (!isDateSelected) {
+                              var formatData =
+                                  formatDate(date, [yyyy, '-', mm, '-', dd]);
+                              payVM.dateController.value.text = formatData;
+                              FocusScope.of(context).unfocus();
+                            }
+                          },
+                          currentTime: DateTime.now(),
+                          locale: datatTimePicker.LocaleType.vi,
+                        );
+                      },
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    // Chọn tài khoản
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: InkWell(
+                        onTap: () async {
+                          Get.to(() => const PayAccountDetails(type: 2),
+                              transition: Transition.rightToLeft);
+                        },
+                        child: Row(
+                          children: [
+                            payVM.accountIcon.value == 0
+                                ? const Icon(
+                                    Icons.account_balance_wallet,
+                                    size: 25,
+                                    color: Colors.black,
+                                  )
+                                : payVM.accountIcon.value == 1
+                                    ? const Icon(
+                                        Icons.account_balance_wallet,
+                                        size: 25,
+                                        color: Colors.black,
+                                      )
+                                    : const Icon(
+                                        Icons.account_balance,
+                                        size: 25,
+                                        color: Colors.black,
+                                      ),
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            Text(
+                              payVM.accountTitle.value == ''
+                                  ? "Chọn tài khoản"
+                                  : payVM.accountTitle.value,
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                            const Spacer(),
+                            const Icon(Icons.navigate_next)
+                          ],
+                        ),
+                      ),
+                    ),
+                    10.heightBox,
+                    TextFormField(
+                      controller: payVM.descriptionAccount.value,
+                      decoration: const InputDecoration(
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                        labelText: 'Diễn giải',
+                        prefixIcon: Icon(Icons.sort),
+                      ),
+                    ),
+
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    widget.isCheck == true
+                        ? Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    SizedBox(
+                                        width: context.screenWidth * 0.4,
+                                        child: ElevatedButton(
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all<
+                                                    Color>(Colors.red),
+                                          ),
+                                          onPressed: () {
+                                            payVM.serviceDeletePay(
+                                                payVM.payId.value);
+                                          },
+                                          child: const Text('Xóa'),
+                                        )),
+                                    SizedBox(
+                                        width: context.screenWidth * 0.4,
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            if (payVM.accountTitle.value ==
+                                                '') {
+                                              Get.snackbar(appname,
+                                                  "Bạn phải chọn tài khoản trước");
+                                            } else if (payVM
+                                                    .categoryTitle.value ==
+                                                '') {
+                                              Get.snackbar(appname,
+                                                  "Bạn phải chọn danh mục trước");
+                                            } else if (_formKey.currentState!
+                                                .validate()) {
+                                              payVM.serviceUpdatePay(
+                                                  payVM.payId.value,
+                                                  widget.moneyAccount!);
+                                              setState(() {});
+                                              Navigator.pop(context);
+                                            }
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.blue),
+                                          child: const Text('LƯU'),
+                                        )),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
+                        : SizedBox(
+                            width: context.screenWidth * 0.8,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                if (payVM.accountTitle.value == '') {
+                                  Get.snackbar(
+                                      appname, "Bạn phải chọn tài khoản trước");
+                                } else if (payVM.categoryTitle.value == '') {
+                                  Get.snackbar(
+                                      appname, "Bạn phải chọn danh mục trước");
+                                } else if (_formKey.currentState!.validate()) {
+                                  payVM.serviceAddPay();
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.blue),
+                              child: const Text('Lưu'),
+                            )),
+                  ],
+                ),
+              )))));
   }
 }

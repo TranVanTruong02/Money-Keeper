@@ -20,7 +20,7 @@ class SplashViewModel extends GetxController {
 
   void goAfterLoginMainTab() {
     userModel.value = UserModel.fromJson(Globs.udValue(Globs.userPayload));
-    Get.to(() => const HomeMain());
+    Get.offAll(const HomeMain());
   }
 
   void setData() {
@@ -30,6 +30,6 @@ class SplashViewModel extends GetxController {
   void logout() {
     userModel.value = UserModel();
     Globs.udBoolSet(false, Globs.userLogin);
-    Get.to(() => const IntroductionPage());
+    Get.offAll(const IntroductionPage());
   }
 }

@@ -75,8 +75,9 @@ class Globs {
   }
 }
 
+// Các biến chứa api
 class SVKey {
-  static const mainUrl = "http://10.0.2.2:8000";
+  static const mainUrl = "http://117.1.28.99";
   static const baseUrl = '$mainUrl/api/misamoneykeeper/';
   static const nodeUrl = mainUrl;
 
@@ -106,10 +107,12 @@ class SVKey {
   static const svUpdateUserProfile = '${baseUrl}profile/update';
 }
 
+//Các biến chứa key mà server trả về
 class KKey {
   static const payload = "payload";
   static const status = "status";
   static const message = "message";
+  static const messageError = "error_message";
   static const authToken = "auth_token";
   static const name = "name";
   static const email = "email";

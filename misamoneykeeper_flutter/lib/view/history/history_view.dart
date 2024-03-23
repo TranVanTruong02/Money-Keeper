@@ -40,7 +40,6 @@ class _HistoryViewState extends State<HistoryView> {
             style: TextStyle(fontSize: 18, color: Colors.white),
           ),
           centerTitle: true,
-          actions: const [Icon(Icons.more_vert)],
         ),
         body: SafeArea(
             child: SingleChildScrollView(

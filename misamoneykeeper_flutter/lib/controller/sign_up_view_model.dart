@@ -32,6 +32,9 @@ class SignUpVM extends GetxController {
       if (resObj[KKey.status] == 1) {
         Get.to(() => const LoginView(), transition: Transition.leftToRight);
         Get.snackbar("MiSa", "Bạn đã đăng kí thành công");
+        reset();
+      } else if (resObj[KKey.status] == 0) {
+        Get.snackbar("MiSa", "${resObj[KKey.messageError]}");
       }
     }, failure: (err) async {
       Get.snackbar("MiSA", err.toString());
@@ -41,6 +44,15 @@ class SignUpVM extends GetxController {
 
   void showPassword() {
     isShowPasswordLogin.value = !isShowPasswordLogin.value;
+  }
+
+  void reset() {
+    txtTenDem.value.text = '';
+    txtTen.value.text = '';
+    txtEmail.value.text = '';
+    txtSDT.value.text = '';
+    txtPassword.value.text = '';
+    txtConfirmPass.value.text = '';
   }
 
   void showConfirmPass() {

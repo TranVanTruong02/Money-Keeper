@@ -44,6 +44,9 @@ class PayViewModel extends GetxController {
       if (resObj[KKey.status] == 1) {
         clean();
         Get.snackbar(appname, "Bạn đã thêm khoản chi thành công");
+      } else {
+        clean();
+        Get.snackbar(appname, "${resObj[KKey.messageError]}");
       }
     }, failure: (err) async {
       Get.snackbar(appname, err.toString());
@@ -67,6 +70,8 @@ class PayViewModel extends GetxController {
         clean();
 
         Get.snackbar(appname, "Bạn đã cập nhật khoản chi thành công");
+      } else {
+        Get.snackbar(appname, "${resObj[KKey.messageError]}");
       }
     }, failure: (err) async {
       Get.snackbar(appname, err.toString());

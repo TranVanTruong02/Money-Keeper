@@ -5,11 +5,9 @@ import 'package:misamoneykeeper_flutter/common/buttom_widget.dart';
 import 'package:misamoneykeeper_flutter/controller/splash_view_model.dart';
 import 'package:misamoneykeeper_flutter/utility/Colors.dart';
 import 'package:misamoneykeeper_flutter/utility/export.dart';
-import 'package:misamoneykeeper_flutter/view/add/category_view.dart';
 import 'package:misamoneykeeper_flutter/view/info/information_view.dart';
 import 'package:misamoneykeeper_flutter/view/other/notification_view.dart';
 import 'package:misamoneykeeper_flutter/view/report/report_details.dart';
-import 'package:misamoneykeeper_flutter/view/setting/setting_view.dart';
 import 'package:misamoneykeeper_flutter/view/split_money/split_money_view.dart';
 
 class OtherPage extends StatefulWidget {
@@ -212,19 +210,19 @@ class _OtherPageState extends State<OtherPage> {
                                           )));
                             },
                           ),
-                          ButtomWidget(
-                            color: BLUE,
-                            image: imgList,
-                            scaleImage: 0.9,
-                            text: CATAGORY,
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const CategoryView()));
-                            },
-                          ),
+                          // ButtomWidget(
+                          //   color: BLUE,
+                          //   image: imgList,
+                          //   scaleImage: 0.9,
+                          //   text: CATAGORY,
+                          //   onPressed: () {
+                          //     Navigator.push(
+                          //         context,
+                          //         MaterialPageRoute(
+                          //             builder: (context) =>
+                          //                 const CategoryView()));
+                          //   },
+                          // ),
                           ButtomWidget(
                             color: AQUA,
                             image: imgShopping,
@@ -338,7 +336,7 @@ class _OtherPageState extends State<OtherPage> {
                         ButtomWidget(
                           color: LIGHT_BLUE,
                           image: imgMoneyBag,
-                          scaleImage: 0.8,
+                          scaleImage: 1,
                           text: SPLIT_MONEY,
                           onPressed: () {
                             Navigator.push(
@@ -354,119 +352,119 @@ class _OtherPageState extends State<OtherPage> {
                 ),
               ),
               const SizedBox(height: 10),
-              Container(
-                color: Colors.white,
-                child: Column(
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SettingView()),
-                        );
-                      },
-                      style: TextButton.styleFrom(
-                        animationDuration: Duration.zero,
-                        splashFactory: NoSplash.splashFactory,
-                      ).copyWith(
-                        overlayColor:
-                            const MaterialStatePropertyAll(Colors.transparent),
-                      ),
-                      child: const Column(
-                        children: [
-                          Row(
-                            children: [
-                              CircleAvatar(
-                                radius: 20,
-                                backgroundColor: Color(PURPLE),
-                                child: Padding(
-                                  padding: EdgeInsets.all(5), // Border radius
-                                  child: ClipOval(
-                                      child: Icon(
-                                    Icons.settings,
-                                    color: Colors.white,
-                                    size: 20,
-                                  )),
-                                ),
-                              ),
-                              SizedBox(width: 15),
-                              Text(
-                                SETTINGS,
-                                style: TextStyle(
-                                    fontSize: 16, color: Colors.black),
-                              ),
-                              Spacer(),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Divider(
-                            thickness: 0.4,
-                            height: 0.1,
-                            indent: 10,
-                            endIndent: 10,
-                          )
-                        ],
-                      ),
-                    ),
-                    // TextButton(
-                    //   onPressed: () {
-                    //     Navigator.push(
-                    //       context,
-                    //       MaterialPageRoute(
-                    //           builder: (context) => const HelpInfoView()),
-                    //     );
-                    //   },
-                    //   style: TextButton.styleFrom(
-                    //     animationDuration: Duration.zero,
-                    //     splashFactory: NoSplash.splashFactory,
-                    //   ).copyWith(
-                    //     overlayColor:
-                    //         const MaterialStatePropertyAll(Colors.transparent),
-                    //   ),
-                    //   child: const Column(
-                    //     children: [
-                    //       Row(
-                    //         children: [
-                    //           CircleAvatar(
-                    //             radius: 20,
-                    //             backgroundColor: Color(GREY),
-                    //             child: Padding(
-                    //               padding: EdgeInsets.all(5), // Border radius
-                    //               child: ClipOval(
-                    //                   child: Icon(
-                    //                 Icons.info_outline,
-                    //                 color: Colors.white,
-                    //                 size: 20,
-                    //               )),
-                    //             ),
-                    //           ),
-                    //           SizedBox(width: 15),
-                    //           Text(
-                    //             HELP_INFORMATION,
-                    //             style: TextStyle(
-                    //                 fontSize: 16, color: Colors.black),
-                    //           ),
-                    //           Spacer(),
-                    //         ],
-                    //       ),
-                    //       SizedBox(
-                    //         height: 10,
-                    //       ),
-                    //       Divider(
-                    //         thickness: 0.4,
-                    //         height: 0.1,
-                    //         indent: 10,
-                    //         endIndent: 10,
-                    //       )
-                    //     ],
-                    //   ),
-                    // ),
-                  ],
-                ),
-              ),
+              // Container(
+              //   color: Colors.white,
+              //   child: Column(
+              //     children: [
+              //       TextButton(
+              //         onPressed: () {
+              //           Navigator.push(
+              //             context,
+              //             MaterialPageRoute(
+              //                 builder: (context) => const SettingView()),
+              //           );
+              //         },
+              //         style: TextButton.styleFrom(
+              //           animationDuration: Duration.zero,
+              //           splashFactory: NoSplash.splashFactory,
+              //         ).copyWith(
+              //           overlayColor:
+              //               const MaterialStatePropertyAll(Colors.transparent),
+              //         ),
+              //         child: const Column(
+              //           children: [
+              //             Row(
+              //               children: [
+              //                 CircleAvatar(
+              //                   radius: 20,
+              //                   backgroundColor: Color(PURPLE),
+              //                   child: Padding(
+              //                     padding: EdgeInsets.all(5), // Border radius
+              //                     child: ClipOval(
+              //                         child: Icon(
+              //                       Icons.settings,
+              //                       color: Colors.white,
+              //                       size: 20,
+              //                     )),
+              //                   ),
+              //                 ),
+              //                 SizedBox(width: 15),
+              //                 Text(
+              //                   SETTINGS,
+              //                   style: TextStyle(
+              //                       fontSize: 16, color: Colors.black),
+              //                 ),
+              //                 Spacer(),
+              //               ],
+              //             ),
+              //             SizedBox(
+              //               height: 10,
+              //             ),
+              //             Divider(
+              //               thickness: 0.4,
+              //               height: 0.1,
+              //               indent: 10,
+              //               endIndent: 10,
+              //             )
+              //           ],
+              //         ),
+              //       ),
+              //       // TextButton(
+              //       //   onPressed: () {
+              //       //     Navigator.push(
+              //       //       context,
+              //       //       MaterialPageRoute(
+              //       //           builder: (context) => const HelpInfoView()),
+              //       //     );
+              //       //   },
+              //       //   style: TextButton.styleFrom(
+              //       //     animationDuration: Duration.zero,
+              //       //     splashFactory: NoSplash.splashFactory,
+              //       //   ).copyWith(
+              //       //     overlayColor:
+              //       //         const MaterialStatePropertyAll(Colors.transparent),
+              //       //   ),
+              //       //   child: const Column(
+              //       //     children: [
+              //       //       Row(
+              //       //         children: [
+              //       //           CircleAvatar(
+              //       //             radius: 20,
+              //       //             backgroundColor: Color(GREY),
+              //       //             child: Padding(
+              //       //               padding: EdgeInsets.all(5), // Border radius
+              //       //               child: ClipOval(
+              //       //                   child: Icon(
+              //       //                 Icons.info_outline,
+              //       //                 color: Colors.white,
+              //       //                 size: 20,
+              //       //               )),
+              //       //             ),
+              //       //           ),
+              //       //           SizedBox(width: 15),
+              //       //           Text(
+              //       //             HELP_INFORMATION,
+              //       //             style: TextStyle(
+              //       //                 fontSize: 16, color: Colors.black),
+              //       //           ),
+              //       //           Spacer(),
+              //       //         ],
+              //       //       ),
+              //       //       SizedBox(
+              //       //         height: 10,
+              //       //       ),
+              //       //       Divider(
+              //       //         thickness: 0.4,
+              //       //         height: 0.1,
+              //       //         indent: 10,
+              //       //         endIndent: 10,
+              //       //       )
+              //       //     ],
+              //       //   ),
+              //       // ),
+              //     ],
+              //   ),
+              // ),
               const SizedBox(height: 30),
               TextButton(
                 onPressed: () {

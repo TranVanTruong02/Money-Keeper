@@ -71,15 +71,15 @@ class _SituationViewState extends State<SituationView>
       average =
           positiveMonths.isNotEmpty ? totalSum1 / positiveMonths.length : 0;
       totalSum = newData
-          .map((e) => e.pSum ?? 0)
-          .reduce((value, element) => value + element);
+          .map((e) => e.pSum)
+          .reduce((value, element) => value! + element!)!;
 
       maxSum = newData
           .map((e) => e.pSum!)
           .reduce((value, element) => value > element ? value : element);
       maxValue = maxSum / 1000; // Chia cho 1000 nếu cần đơn vị là nghìn
       interval = maxValue / 4;
-      interval = (interval ~/ 10) * 10.0;
+      interval = interval <= 10.0 ? 1.0 : (interval ~/ 10) * 10.0;
       setState(() {});
     } else {
       setState(() {

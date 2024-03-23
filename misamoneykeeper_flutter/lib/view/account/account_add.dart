@@ -70,6 +70,10 @@ class _AddAccountPageState extends State<AccountAdd> {
                                 if (value == null || value.isEmpty) {
                                   return 'Vui lòng nhập giá trị tài sản';
                                 }
+                                double number = double.parse(value);
+                                if (number >= 100000000) {
+                                  return 'Số nhập vào phải nhỏ hơn 100 triệu.';
+                                }
                                 return null;
                               },
                               decoration: const InputDecoration(
@@ -87,6 +91,7 @@ class _AddAccountPageState extends State<AccountAdd> {
                                 if (value == null || value.isEmpty) {
                                   return 'Vui lòng nhập tên';
                                 }
+
                                 return null;
                               },
                               decoration: const InputDecoration(
@@ -141,12 +146,6 @@ class _AddAccountPageState extends State<AccountAdd> {
                             child: TextFormField(
                               controller:
                                   accountAddVM.descriptionController.value,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Vui lòng nhập diễn giải';
-                                }
-                                return null;
-                              },
                               decoration: const InputDecoration(
                                 contentPadding: EdgeInsets.symmetric(
                                     horizontal: 15, vertical: 5),
