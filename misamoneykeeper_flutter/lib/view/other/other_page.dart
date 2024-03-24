@@ -46,13 +46,7 @@ class _OtherPageState extends State<OtherPage> {
                 padding: const EdgeInsets.all(10),
                 child: TextButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const InformationView()),
-                    ).then((value) {
-                      delayedFunction();
-                    });
+                    Get.to(() => const InformationView());
                   },
                   style: TextButton.styleFrom(
                           animationDuration: Duration.zero,
@@ -99,11 +93,7 @@ class _OtherPageState extends State<OtherPage> {
                       const Spacer(),
                       IconButton(
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const NotificationView()));
+                          Get.to(() => const NotificationView());
                         },
                         icon: const Icon(Icons.notifications,
                             size: 28, color: Colors.black),
@@ -196,12 +186,9 @@ class _OtherPageState extends State<OtherPage> {
                             scaleImage: 1.0,
                             text: tinhhinhthuchi,
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const ReportDetails(
-                                            idx: 1,
-                                          )));
+                              Get.to(() => const ReportDetails(
+                                    idx: 1,
+                                  ));
                             },
                           ),
                           // ButtomWidget(
@@ -223,12 +210,9 @@ class _OtherPageState extends State<OtherPage> {
                             scaleImage: 1.3,
                             text: phantichchitieu,
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const ReportDetails(
-                                            idx: 2,
-                                          )));
+                              Get.to(() => const ReportDetails(
+                                    idx: 2,
+                                  ));
                             },
                           ),
                           ButtomWidget(
@@ -237,12 +221,9 @@ class _OtherPageState extends State<OtherPage> {
                             scaleImage: 0.8,
                             text: phantichthu,
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const ReportDetails(
-                                            idx: 3,
-                                          )));
+                              Get.to(() => const ReportDetails(
+                                    idx: 3,
+                                  ));
                             },
                           ),
                           // ButtomWidget(
@@ -333,11 +314,7 @@ class _OtherPageState extends State<OtherPage> {
                           scaleImage: 1,
                           text: SPLIT_MONEY,
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const SplitMoneyView()));
+                            Get.to(() => const SplitMoneyView());
                           },
                         ),
                       ],

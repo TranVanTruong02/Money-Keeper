@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:misamoneykeeper_flutter/utility/export.dart';
 
 class ExitConfirmationDialog extends StatelessWidget {
@@ -18,7 +19,7 @@ class ExitConfirmationDialog extends StatelessWidget {
           ),
         ),
         TextButton(
-          onPressed: () => Navigator.of(context).pop(true),
+          onPressed: () => SystemNavigator.pop(),
           child: const Text('Có'),
         ),
       ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:misamoneykeeper_flutter/common/exit_dialog.dart';
 import 'package:misamoneykeeper_flutter/view/auth/login_view.dart';
 import 'package:misamoneykeeper_flutter/view/auth/signup.dart';
 
@@ -42,120 +43,130 @@ class _IntroductionPageState extends State<IntroductionPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          physics: const NeverScrollableScrollPhysics(),
-          child: SizedBox(
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height,
-            child: Column(
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: PageView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: listData.length,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          Expanded(
-                            flex: 4,
-                            child: Image.asset(
-                              listData[index]['image']!,
-                            ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Container(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: Text(
-                                listData[index]['description']!,
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                ),
-                                textAlign: TextAlign.center,
+    return WillPopScope(
+      onWillPop: () async {
+        bool exit = await showDialog(
+          context: context,
+          builder: (context) => const ExitConfirmationDialog(),
+        );
+
+        return exit;
+      },
+      child: Scaffold(
+        body: SafeArea(
+          child: SingleChildScrollView(
+            physics: const NeverScrollableScrollPhysics(),
+            child: SizedBox(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height,
+              child: Column(
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: PageView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: listData.length,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            Expanded(
+                              flex: 4,
+                              child: Image.asset(
+                                listData[index]['image']!,
                               ),
                             ),
-                          ),
-                        ],
-                      );
-                    },
+                            Expanded(
+                              flex: 1,
+                              child: Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: Text(
+                                  listData[index]['description']!,
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
                   ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          Get.to(() => const SignUpView());
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 63, 164, 247),
-                          foregroundColor: Colors.white,
-                          splashFactory: NoSplash.splashFactory,
-                          elevation: 0,
-                          shadowColor: Colors.transparent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(32),
-                          ),
-                          padding: const EdgeInsets.fromLTRB(30, 5, 30, 5),
-                        ).copyWith(
-                            elevation: const MaterialStatePropertyAll(0)),
-                        child: Text(
-                          "Đăng ký tài khoản mới".toUpperCase(),
-                          style: const TextStyle(
-                            fontSize: 16,
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            Get.to(() => const SignUpView());
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color.fromARGB(255, 63, 164, 247),
+                            foregroundColor: Colors.white,
+                            splashFactory: NoSplash.splashFactory,
+                            elevation: 0,
+                            shadowColor: Colors.transparent,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(32),
+                            ),
+                            padding: const EdgeInsets.fromLTRB(30, 5, 30, 5),
+                          ).copyWith(
+                              elevation: const MaterialStatePropertyAll(0)),
+                          child: Text(
+                            "Đăng ký tài khoản mới".toUpperCase(),
+                            style: const TextStyle(
+                              fontSize: 16,
+                            ),
                           ),
                         ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Get.to(() => const LoginView());
-                        },
-                        style: ButtonStyle(
-                          animationDuration: Duration.zero,
-                          foregroundColor: MaterialStateProperty.resolveWith(
-                            getColor,
+                        TextButton(
+                          onPressed: () {
+                            Get.to(() => const LoginView());
+                          },
+                          style: ButtonStyle(
+                            animationDuration: Duration.zero,
+                            foregroundColor: MaterialStateProperty.resolveWith(
+                              getColor,
+                            ),
+                            splashFactory: NoSplash.splashFactory,
+                          ).copyWith(
+                            overlayColor: const MaterialStatePropertyAll(
+                                Colors.transparent),
                           ),
-                          splashFactory: NoSplash.splashFactory,
-                        ).copyWith(
-                          overlayColor: const MaterialStatePropertyAll(
-                              Colors.transparent),
+                          child: Text(
+                            'Đăng nhập'.toUpperCase(),
+                            style: const TextStyle(fontSize: 16),
+                          ),
                         ),
-                        child: Text(
-                          'Đăng nhập'.toUpperCase(),
-                          style: const TextStyle(fontSize: 16),
-                        ),
-                      ),
-                      // Container(
-                      //   alignment: Alignment.bottomRight,
-                      //   padding: const EdgeInsets.only(right: 5),
-                      //   child: TextButton(
-                      //     onPressed: () {},
-                      //     style: ButtonStyle(
-                      //       animationDuration: Duration.zero,
-                      //       foregroundColor: MaterialStateProperty.resolveWith(
-                      //         getColor,
-                      //       ),
-                      //       splashFactory: NoSplash.splashFactory,
-                      //     ).copyWith(
-                      //       overlayColor: const MaterialStatePropertyAll(
-                      //           Colors.transparent),
-                      //     ),
-                      //     child: const Text(
-                      //       'Tiếng Việt',
-                      //       style: TextStyle(fontSize: 14),
-                      //     ),
-                      //   ),
-                      // )
-                    ],
+                        // Container(
+                        //   alignment: Alignment.bottomRight,
+                        //   padding: const EdgeInsets.only(right: 5),
+                        //   child: TextButton(
+                        //     onPressed: () {},
+                        //     style: ButtonStyle(
+                        //       animationDuration: Duration.zero,
+                        //       foregroundColor: MaterialStateProperty.resolveWith(
+                        //         getColor,
+                        //       ),
+                        //       splashFactory: NoSplash.splashFactory,
+                        //     ).copyWith(
+                        //       overlayColor: const MaterialStatePropertyAll(
+                        //           Colors.transparent),
+                        //     ),
+                        //     child: const Text(
+                        //       'Tiếng Việt',
+                        //       style: TextStyle(fontSize: 14),
+                        //     ),
+                        //   ),
+                        // )
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

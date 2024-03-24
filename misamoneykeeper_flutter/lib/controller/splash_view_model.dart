@@ -12,9 +12,9 @@ class SplashViewModel extends GetxController {
 
     if (Globs.udValueBool(Globs.userLogin)) {
       userModel.value = UserModel.fromJson(Globs.udValue(Globs.userPayload));
-      Get.to(() => const HomeMain());
+      Get.offAll(const HomeMain());
     } else {
-      Get.to(() => const IntroductionPage());
+      Get.offAll(const IntroductionPage());
     }
   }
 
