@@ -12,6 +12,11 @@ class InformationView extends StatefulWidget {
 
 class InformationViewState extends State<InformationView> {
   final splashVM = Get.find<SplashViewModel>();
+  Future<void> delayedFunction() async {
+    await Future.delayed(const Duration(milliseconds: 100));
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +70,9 @@ class InformationViewState extends State<InformationView> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => const ChangeInfoView()),
-                  );
+                  ).then((value) {
+                    delayedFunction();
+                  });
                 },
                 style: TextButton.styleFrom(
                   elevation: 0,

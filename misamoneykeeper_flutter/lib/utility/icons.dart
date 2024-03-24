@@ -1,4 +1,4 @@
-const icLogo = "assets/icons/icLogo.png";
+const icLogo = "assets/icons/iclogo.png";
 
 // Báo cáo
 const icReport_1 = "assets/icons/icReport_1.png";

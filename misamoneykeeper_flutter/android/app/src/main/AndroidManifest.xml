@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="misamoneykeeper_flutter"
+        android:label="Misa Moneykepper"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@drawable/wallet">
         
         <activity
             android:name=".MainActivity"

@@ -24,17 +24,9 @@ class _OtherPageState extends State<OtherPage> {
     super.initState();
   }
 
-  Future processBar() async {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return const Center(child: CircularProgressIndicator());
-        });
-    Timer(const Duration(milliseconds: 500), () {
-      setState(() {
-        Navigator.of(context).pop();
-      });
-    });
+  Future<void> delayedFunction() async {
+    await Future.delayed(const Duration(milliseconds: 100));
+    setState(() {});
   }
 
   @override
@@ -58,7 +50,9 @@ class _OtherPageState extends State<OtherPage> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => const InformationView()),
-                    );
+                    ).then((value) {
+                      delayedFunction();
+                    });
                   },
                   style: TextButton.styleFrom(
                           animationDuration: Duration.zero,
