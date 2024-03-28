@@ -102,56 +102,6 @@ class _OtherPageState extends State<OtherPage> {
                   ),
                 ),
               ),
-              // const SizedBox(height: 10),
-              // Container(
-              //   color: Colors.white,
-              //   child: Column(
-              //     children: [
-              //       // Stack(
-              //       //   alignment: Alignment.center,
-              //       //   children: [
-              //       //     Image.asset('assets/images/rocket.png'),
-              //       //     ElevatedButton(
-              //       //       onPressed: () {},
-              //       //       style: ElevatedButton.styleFrom(
-              //       //         backgroundColor: Colors.white,
-              //       //         foregroundColor: Colors.orange[600],
-              //       //         splashFactory: NoSplash.splashFactory,
-              //       //         elevation: 0,
-              //       //         shadowColor: Colors.transparent,
-              //       //         shape: RoundedRectangleBorder(
-              //       //           borderRadius: BorderRadius.circular(32),
-              //       //         ),
-              //       //         padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-              //       //       ).copyWith(
-              //       //           elevation: const MaterialStatePropertyAll(0)),
-              //       //       child: const Text(
-              //       //         'Nâng cấp Premium',
-              //       //         style: TextStyle(
-              //       //             fontWeight: FontWeight.bold, fontSize: 16),
-              //       //       ),
-              //       //     ),
-              //       //   ],
-              //       // ),
-              //       Container(
-              //         padding: const EdgeInsets.fromLTRB(12, 12, 12, 12),
-              //         child: Row(
-              //           children: [
-              //             buttonBorderWidget(
-              //                 image: imgCoin,
-              //                 title: 'Xu của bạn',
-              //                 content: '4000 xu'),
-              //             const SizedBox(width: 10),
-              //             buttonBorderWidget(
-              //                 image: imgBack,
-              //                 title: 'Chia sẻ nhận xu',
-              //                 content: 'Mã 380 1596'),
-              //           ],
-              //         ),
-              //       )
-              //     ],
-              //   ),
-              // ),
               const SizedBox(height: 10),
               Container(
                 color: Colors.white,
@@ -191,19 +141,6 @@ class _OtherPageState extends State<OtherPage> {
                                   ));
                             },
                           ),
-                          // ButtomWidget(
-                          //   color: BLUE,
-                          //   image: imgList,
-                          //   scaleImage: 0.9,
-                          //   text: CATAGORY,
-                          //   onPressed: () {
-                          //     Navigator.push(
-                          //         context,
-                          //         MaterialPageRoute(
-                          //             builder: (context) =>
-                          //                 const CategoryView()));
-                          //   },
-                          // ),
                           ButtomWidget(
                             color: AQUA,
                             image: imgShopping,
@@ -226,45 +163,6 @@ class _OtherPageState extends State<OtherPage> {
                                   ));
                             },
                           ),
-                          // ButtomWidget(
-                          //   color: PURPLE,
-                          //   image: imgWriting,
-                          //   scaleImage: 1.0,
-                          //   text: RECORD_SAMPLE,
-                          //   onPressed: () {
-                          //     Navigator.push(
-                          //         context,
-                          //         MaterialPageRoute(
-                          //             builder: (context) =>
-                          //                 const SampleNotesView()));
-                          //   },
-                          // ),
-                          // ButtomWidget(
-                          //   color: YELLOW,
-                          //   image: imgTransfer,
-                          //   scaleImage: 0.9,
-                          //   text: EXPECTED,
-                          //   onPressed: () {
-                          //     Navigator.push(
-                          //         context,
-                          //         MaterialPageRoute(
-                          //             builder: (context) =>
-                          //                 const ExpectedView()));
-                          //   },
-                          // ),
-                          // ButtomWidget(
-                          //   color: LIGHT_BLUE,
-                          //   image: imgExport,
-                          //   scaleImage: 1,
-                          //   text: EXPORT_DATA,
-                          //   onPressed: () {
-                          //     // Navigator.push(
-                          //     //     context,
-                          //     //     MaterialPageRoute(
-                          //     //         builder: (context) =>
-                          //     //             const ExportData()));
-                          //   },
-                          // ),
                         ],
                       ),
                     ),
@@ -296,18 +194,6 @@ class _OtherPageState extends State<OtherPage> {
                         crossAxisCount: 4,
                       ),
                       children: [
-                        // ButtomWidget(
-                        //   color: GREEN,
-                        //   image: imgPig,
-                        //   scaleImage: 0.9,
-                        //   text: SAVINGS,
-                        //   onPressed: () {
-                        //     Navigator.push(
-                        //         context,
-                        //         MaterialPageRoute(
-                        //             builder: (context) => const SavingView()));
-                        //   },
-                        // ),
                         ButtomWidget(
                           color: LIGHT_BLUE,
                           image: imgMoneyBag,
@@ -323,125 +209,11 @@ class _OtherPageState extends State<OtherPage> {
                 ),
               ),
               const SizedBox(height: 10),
-              // Container(
-              //   color: Colors.white,
-              //   child: Column(
-              //     children: [
-              //       TextButton(
-              //         onPressed: () {
-              //           Navigator.push(
-              //             context,
-              //             MaterialPageRoute(
-              //                 builder: (context) => const SettingView()),
-              //           );
-              //         },
-              //         style: TextButton.styleFrom(
-              //           animationDuration: Duration.zero,
-              //           splashFactory: NoSplash.splashFactory,
-              //         ).copyWith(
-              //           overlayColor:
-              //               const MaterialStatePropertyAll(Colors.transparent),
-              //         ),
-              //         child: const Column(
-              //           children: [
-              //             Row(
-              //               children: [
-              //                 CircleAvatar(
-              //                   radius: 20,
-              //                   backgroundColor: Color(PURPLE),
-              //                   child: Padding(
-              //                     padding: EdgeInsets.all(5), // Border radius
-              //                     child: ClipOval(
-              //                         child: Icon(
-              //                       Icons.settings,
-              //                       color: Colors.white,
-              //                       size: 20,
-              //                     )),
-              //                   ),
-              //                 ),
-              //                 SizedBox(width: 15),
-              //                 Text(
-              //                   SETTINGS,
-              //                   style: TextStyle(
-              //                       fontSize: 16, color: Colors.black),
-              //                 ),
-              //                 Spacer(),
-              //               ],
-              //             ),
-              //             SizedBox(
-              //               height: 10,
-              //             ),
-              //             Divider(
-              //               thickness: 0.4,
-              //               height: 0.1,
-              //               indent: 10,
-              //               endIndent: 10,
-              //             )
-              //           ],
-              //         ),
-              //       ),
-              //       // TextButton(
-              //       //   onPressed: () {
-              //       //     Navigator.push(
-              //       //       context,
-              //       //       MaterialPageRoute(
-              //       //           builder: (context) => const HelpInfoView()),
-              //       //     );
-              //       //   },
-              //       //   style: TextButton.styleFrom(
-              //       //     animationDuration: Duration.zero,
-              //       //     splashFactory: NoSplash.splashFactory,
-              //       //   ).copyWith(
-              //       //     overlayColor:
-              //       //         const MaterialStatePropertyAll(Colors.transparent),
-              //       //   ),
-              //       //   child: const Column(
-              //       //     children: [
-              //       //       Row(
-              //       //         children: [
-              //       //           CircleAvatar(
-              //       //             radius: 20,
-              //       //             backgroundColor: Color(GREY),
-              //       //             child: Padding(
-              //       //               padding: EdgeInsets.all(5), // Border radius
-              //       //               child: ClipOval(
-              //       //                   child: Icon(
-              //       //                 Icons.info_outline,
-              //       //                 color: Colors.white,
-              //       //                 size: 20,
-              //       //               )),
-              //       //             ),
-              //       //           ),
-              //       //           SizedBox(width: 15),
-              //       //           Text(
-              //       //             HELP_INFORMATION,
-              //       //             style: TextStyle(
-              //       //                 fontSize: 16, color: Colors.black),
-              //       //           ),
-              //       //           Spacer(),
-              //       //         ],
-              //       //       ),
-              //       //       SizedBox(
-              //       //         height: 10,
-              //       //       ),
-              //       //       Divider(
-              //       //         thickness: 0.4,
-              //       //         height: 0.1,
-              //       //         indent: 10,
-              //       //         endIndent: 10,
-              //       //       )
-              //       //     ],
-              //       //   ),
-              //       // ),
-              //     ],
-              //   ),
-              // ),
               const SizedBox(height: 30),
               TextButton(
                 onPressed: () {
                   const CircularProgressIndicator();
                   setState(() {
-                    // processBar();
                     final now = DateTime.now();
                     // ignore: unused_local_variable
                     var formatData = formatDate(now,

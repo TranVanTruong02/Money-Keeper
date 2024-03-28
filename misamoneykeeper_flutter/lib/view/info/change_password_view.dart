@@ -1,4 +1,4 @@
-import 'package:misamoneykeeper_flutter/controller/change_pass_view_model.dart';
+import 'package:misamoneykeeper_flutter/controller/info/change_pass_view_model.dart';
 import 'package:misamoneykeeper_flutter/utility/export.dart';
 
 class ChangePasswordView extends StatefulWidget {
@@ -12,11 +12,9 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
   late ChangePassVM changePassVM;
   final formKey = GlobalKey<FormState>();
   bool validatePassword(String password) {
-    // Biểu thức chính quy kiểm tra mật khẩu
     RegExp passwordRegex =
         RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
 
-    // Kiểm tra xem mật khẩu có khớp với biểu thức chính quy hay không
     return passwordRegex.hasMatch(password);
   }
 
@@ -67,7 +65,6 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                     },
                     decoration: InputDecoration(
                       labelText: 'Mật khẩu cũ',
-                      // contentPadding: const EdgeInsets.all(10),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(6),
                         borderSide: const BorderSide(),
@@ -111,7 +108,6 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                     },
                     decoration: InputDecoration(
                       labelText: 'Xác nhận mật khẩu',
-                      // contentPadding: const EdgeInsets.all(10),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(6),
                         borderSide: const BorderSide(),

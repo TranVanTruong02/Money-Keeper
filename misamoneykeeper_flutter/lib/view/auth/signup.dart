@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:misamoneykeeper_flutter/common/validator.dart';
-import 'package:misamoneykeeper_flutter/controller/sign_up_view_model.dart';
+import 'package:misamoneykeeper_flutter/controller/auth/sign_up_view_model.dart';
 import 'package:misamoneykeeper_flutter/utility/export.dart';
 import 'package:misamoneykeeper_flutter/view/auth/login_view.dart';
 
@@ -15,11 +15,9 @@ class _SignUpViewState extends State<SignUpView> {
   final authVM = Get.put(SignUpVM());
   final _formKey = GlobalKey<FormState>();
   bool validatePassword(String password) {
-    // Biểu thức chính quy kiểm tra mật khẩu
     RegExp passwordRegex =
         RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
 
-    // Kiểm tra xem mật khẩu có khớp với biểu thức chính quy hay không
     return passwordRegex.hasMatch(password);
   }
 
@@ -52,8 +50,7 @@ class _SignUpViewState extends State<SignUpView> {
           child: Column(
             children: [
               ClipRRect(
-                borderRadius:
-                    BorderRadius.circular(20), // Đặt bán kính bo góc ở đây
+                borderRadius: BorderRadius.circular(20),
                 child: Image.asset(
                   icLogo,
                   width: 60,
@@ -259,45 +256,6 @@ class _SignUpViewState extends State<SignUpView> {
                         ],
                       ),
                     ),
-                    // const SizedBox(height: 15),
-                    // const Row(
-                    //   children: [
-                    //     Expanded(
-                    //       child: Divider(
-                    //         color: Colors.grey,
-                    //         endIndent: 15,
-                    //         thickness: 0.7,
-                    //       ),
-                    //     ),
-                    //     Text('Hoặc đăng nhập bằng'),
-                    //     Expanded(
-                    //       child: Divider(
-                    //         color: Colors.grey,
-                    //         indent: 15,
-                    //         thickness: 0.7,
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
-                    // const SizedBox(height: 15),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: [
-                    //     Image.asset(
-                    //       imgFacebook,
-                    //       height: 35,
-                    //       width: 35,
-                    //     ),
-                    //     const SizedBox(
-                    //       width: 30,
-                    //     ),
-                    //     Image.asset(
-                    //       imgGoogle,
-                    //       height: 35,
-                    //       width: 35,
-                    //     ),
-                    //   ],
-                    // ),
                   ],
                 ),
               ),

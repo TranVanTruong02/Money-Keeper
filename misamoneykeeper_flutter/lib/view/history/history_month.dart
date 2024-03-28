@@ -1,4 +1,4 @@
-import 'package:misamoneykeeper_flutter/controller/history_view_model.dart';
+import 'package:misamoneykeeper_flutter/controller/home/history_view_model.dart';
 import 'package:misamoneykeeper_flutter/utility/export.dart';
 
 class HistoryMonth extends StatelessWidget {

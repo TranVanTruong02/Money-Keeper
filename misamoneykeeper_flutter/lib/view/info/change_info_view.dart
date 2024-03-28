@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 import 'package:misamoneykeeper_flutter/controller/splash_view_model.dart';
-import 'package:misamoneykeeper_flutter/controller/user_profile_view_model.dart';
+import 'package:misamoneykeeper_flutter/controller/info/user_profile_view_model.dart';
 import 'package:misamoneykeeper_flutter/model/user_profile.dart';
 import 'package:misamoneykeeper_flutter/utility/common_widgets.dart';
 import 'package:misamoneykeeper_flutter/utility/export.dart';
@@ -101,28 +101,6 @@ class _ChangeInfoViewState extends State<ChangeInfoView> {
                       ),
                     ),
                   ),
-                  // Positioned(
-                  //   bottom: 1,
-                  //   right: 1,
-                  //   child: Container(
-                  //     decoration: BoxDecoration(
-                  //       border: Border.all(
-                  //         width: 0.2,
-                  //         color: Colors.grey,
-                  //       ),
-                  //       borderRadius: const BorderRadius.all(
-                  //         Radius.circular(
-                  //           50,
-                  //         ),
-                  //       ),
-                  //       color: Colors.white,
-                  //     ),
-                  //     child: const Padding(
-                  //       padding: EdgeInsets.all(3.0),
-                  //       child: Icon(Icons.edit, size: 14, color: Colors.grey),
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               ),
               const SizedBox(height: 20),

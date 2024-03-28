@@ -1,6 +1,6 @@
-import 'package:misamoneykeeper_flutter/controller/pay_account_view_model.dart';
-import 'package:misamoneykeeper_flutter/controller/collect_view_model.dart';
-import 'package:misamoneykeeper_flutter/controller/pay_view_model.dart';
+import 'package:misamoneykeeper_flutter/controller/add/collect_view_model.dart';
+import 'package:misamoneykeeper_flutter/controller/report/pay_account_view_model.dart';
+import 'package:misamoneykeeper_flutter/controller/add/pay_view_model.dart';
 import 'package:misamoneykeeper_flutter/model/account_model.dart';
 import 'package:misamoneykeeper_flutter/server/loading_indicator.dart';
 import 'package:misamoneykeeper_flutter/utility/export.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart';
-import 'package:misamoneykeeper_flutter/controller/account_add_view_model.dart';
+import 'package:misamoneykeeper_flutter/controller/account/account_add_view_model.dart';
 import 'package:misamoneykeeper_flutter/server/loading_indicator.dart';
 import 'package:misamoneykeeper_flutter/utility/export.dart';
 
@@ -71,8 +71,8 @@ class _AddAccountPageState extends State<AccountAdd> {
                                   return 'Vui lòng nhập giá trị tài sản';
                                 }
                                 double number = double.parse(value);
-                                if (number >= 100000000) {
-                                  return 'Số nhập vào phải nhỏ hơn 100 triệu.';
+                                if (number >= 1000000000) {
+                                  return 'Số nhập vào phải nhỏ hơn 1 tỷ.';
                                 }
                                 return null;
                               },

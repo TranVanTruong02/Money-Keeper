@@ -1,4 +1,4 @@
-import 'package:misamoneykeeper_flutter/controller/home_account_view_model.dart';
+import 'package:misamoneykeeper_flutter/controller/home/home_account_view_model.dart';
 import 'package:misamoneykeeper_flutter/server/loading_indicator.dart';
 import 'package:misamoneykeeper_flutter/utility/export.dart';
 import 'package:misamoneykeeper_flutter/view/add/add_view.dart';

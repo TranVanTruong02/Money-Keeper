@@ -1,4 +1,4 @@
-import 'package:misamoneykeeper_flutter/controller/spending_view_model.dart';
+import 'package:misamoneykeeper_flutter/controller/report/spending_view_model.dart';
 import 'package:misamoneykeeper_flutter/model/spending_money.dart';
 import 'package:misamoneykeeper_flutter/server/loading_indicator.dart';
 import 'package:misamoneykeeper_flutter/utility/export.dart';
@@ -77,7 +77,7 @@ class _SituationViewState extends State<SituationView>
       maxSum = newData
           .map((e) => e.pSum!)
           .reduce((value, element) => value > element ? value : element);
-      maxValue = maxSum / 1000; // Chia cho 1000 nếu cần đơn vị là nghìn
+      maxValue = maxSum / 1000;
       interval = maxValue / 4;
       interval = interval <= 10.0 ? 1.0 : (interval ~/ 10) * 10.0;
       setState(() {});
@@ -114,22 +114,14 @@ class _SituationViewState extends State<SituationView>
         elevation: 0,
       ),
       body: FutureBuilder<List<SpendingMoney>>(
-        // Gọi hàm fetchData() để nhận dữ liệu
         future: spendingVM.serviceCallList(),
         builder: (context, snapshot) {
-          // Kiểm tra trạng thái của Future
           if (snapshot.connectionState == ConnectionState.waiting) {
-            // Nếu Future đang chờ dữ liệu, hiển thị một tiêu đề loading
             return Center(child: loadingIndicator());
           } else if (snapshot.hasError) {
-            // Nếu có lỗi xảy ra trong quá trình lấy dữ liệu, hiển thị một thông báo lỗi
             return Text('Error: ${snapshot.error}');
           } else {
-            // Nếu dữ liệu đã sẵn có, hiển thị dữ liệu lên giao diện
             final List<SpendingMoney> data = snapshot.data!;
-            // Đây là nơi bạn có thể sử dụng dữ liệu để hiển thị trên giao diện
-            // Ví dụ: ListView.builder để hiển thị danh sách các tài khoản
-
             hasZeroValue = data.any((element) => element.pSum != 0);
             return SingleChildScrollView(
               child: Column(
@@ -141,7 +133,6 @@ class _SituationViewState extends State<SituationView>
                     color: Colors.white,
                     child: ElevatedButton(
                       onPressed: () {
-                        // Show year picker
                         selectYear(context);
                       },
                       style: TextButton.styleFrom(
@@ -305,8 +296,7 @@ class _SituationViewState extends State<SituationView>
                         Visibility(
                           visible: isListViewVisible,
                           child: ListView.separated(
-                            itemCount: positiveMonths
-                                .length, // Set the number of items in the ListView
+                            itemCount: positiveMonths.length,
                             shrinkWrap: true,
                             separatorBuilder: (context, index) {
                               return const Divider(

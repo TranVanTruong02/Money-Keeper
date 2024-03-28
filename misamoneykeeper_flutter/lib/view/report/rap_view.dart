@@ -1,4 +1,4 @@
-import 'package:misamoneykeeper_flutter/controller/sc_money_view_model.dart';
+import 'package:misamoneykeeper_flutter/controller/report/sc_money_view_model.dart';
 import 'package:misamoneykeeper_flutter/model/sc_money.dart';
 import 'package:misamoneykeeper_flutter/server/loading_indicator.dart';
 import 'package:misamoneykeeper_flutter/utility/export.dart';
@@ -46,14 +46,6 @@ class _RapViewState extends State<RapView> with TickerProviderStateMixin {
         });
   }
 
-  bool isListViewVisible = false;
-
-  void toggleListViewVisibility() {
-    setState(() {
-      isListViewVisible = !isListViewVisible;
-    });
-  }
-
   @override
   void dispose() {
     Get.delete<SCMoneyVM>();
@@ -82,16 +74,14 @@ class _RapViewState extends State<RapView> with TickerProviderStateMixin {
           .map((e) => e.pTotalRevenue!)
           .reduce((value, element) => value > element ? value : element);
       if (maxExpense > maxRevenue) {
-        maxValue = maxExpense / 1000; // Chia cho 1000 nếu cần đơn vị là nghìn
+        maxValue = maxExpense / 1000;
         interval = maxValue / 4;
         interval = interval <= 10.0 ? 1.0 : (interval ~/ 10) * 10.0;
-        print("a $interval");
       } else {
-        maxValue = maxRevenue / 1000; // Chia cho 1000 nếu cần đơn vị là nghìn
+        maxValue = maxRevenue / 1000;
         interval = maxValue / 4;
         interval = interval <= 10.0 ? 1.0 : (interval ~/ 10) * 10.0;
       }
-      print(interval);
       setState(() {});
     } else {
       setState(() {
@@ -121,21 +111,14 @@ class _RapViewState extends State<RapView> with TickerProviderStateMixin {
         elevation: 0,
       ),
       body: FutureBuilder<List<SCMoney>>(
-        // Gọi hàm fetchData() để nhận dữ liệu
         future: scMoneyVM.serviceCallList(),
         builder: (context, snapshot) {
-          // Kiểm tra trạng thái của Future
           if (snapshot.connectionState == ConnectionState.waiting) {
-            // Nếu Future đang chờ dữ liệu, hiển thị một tiêu đề loading
             return Center(child: loadingIndicator());
           } else if (snapshot.hasError) {
-            // Nếu có lỗi xảy ra trong quá trình lấy dữ liệu, hiển thị một thông báo lỗi
             return Text('Error: ${snapshot.error}');
           } else {
-            // Nếu dữ liệu đã sẵn có, hiển thị dữ liệu lên giao diện
             final List<SCMoney> data = snapshot.data!;
-            // Đây là nơi bạn có thể sử dụng dữ liệu để hiển thị trên giao diện
-            // Ví dụ: ListView.builder để hiển thị danh sách các tài khoản
 
             hasZeroValue = data.any((element) =>
                 element.pTotalExpense != 0 || element.pTotalRevenue != 0);
@@ -149,7 +132,6 @@ class _RapViewState extends State<RapView> with TickerProviderStateMixin {
                     color: Colors.white,
                     child: ElevatedButton(
                       onPressed: () {
-                        // Show year picker
                         selectYear(context);
                       },
                       style: TextButton.styleFrom(
@@ -298,8 +280,7 @@ class _RapViewState extends State<RapView> with TickerProviderStateMixin {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         ListView.separated(
-                          itemCount: positiveMonths
-                              .length, // Set the number of items in the ListView
+                          itemCount: positiveMonths.length,
                           shrinkWrap: true,
                           separatorBuilder: (context, index) {
                             return const Divider(
@@ -354,10 +335,4 @@ class _RapViewState extends State<RapView> with TickerProviderStateMixin {
       ),
     );
   }
-}
-
-class ChartData {
-  ChartData(this.x, this.y);
-  final int x;
-  final double y;
 }

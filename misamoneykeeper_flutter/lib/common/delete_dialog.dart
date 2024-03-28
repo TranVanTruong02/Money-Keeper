@@ -1,6 +1,6 @@
 import 'package:misamoneykeeper_flutter/common/custom_button.dart';
-import 'package:misamoneykeeper_flutter/controller/account_delete_view_model.dart';
-import 'package:misamoneykeeper_flutter/controller/account_view_model.dart';
+import 'package:misamoneykeeper_flutter/controller/account/account_delete_view_model.dart';
+import 'package:misamoneykeeper_flutter/controller/account/account_view_model.dart';
 import 'package:misamoneykeeper_flutter/utility/export.dart';
 
 class ExitDialog extends StatefulWidget {

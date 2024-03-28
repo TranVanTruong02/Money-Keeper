@@ -1,5 +1,5 @@
-import 'package:misamoneykeeper_flutter/controller/history_view_model.dart';
-import 'package:misamoneykeeper_flutter/controller/pay_view_model.dart';
+import 'package:misamoneykeeper_flutter/controller/home/history_view_model.dart';
+import 'package:misamoneykeeper_flutter/controller/add/pay_view_model.dart';
 import 'package:misamoneykeeper_flutter/server/globs.dart';
 import 'package:misamoneykeeper_flutter/server/loading_indicator.dart';
 import 'package:misamoneykeeper_flutter/utility/export.dart';
@@ -19,8 +19,7 @@ class _HistoryViewState extends State<HistoryView> {
   final payVM = Get.put(PayViewModel());
 
   Future<void> delayedFunction() async {
-    await Future.delayed(
-        const Duration(milliseconds: 200)); // Thiết lập độ trễ là 2 giây
+    await Future.delayed(const Duration(milliseconds: 200));
     setState(() {});
   }
 

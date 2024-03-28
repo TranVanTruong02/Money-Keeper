@@ -1,5 +1,5 @@
-import 'package:misamoneykeeper_flutter/controller/category_details_collect_view_model.dart';
-import 'package:misamoneykeeper_flutter/controller/collect_view_model.dart';
+import 'package:misamoneykeeper_flutter/controller/catagory/category_details_collect_view_model.dart';
+import 'package:misamoneykeeper_flutter/controller/add/collect_view_model.dart';
 import 'package:misamoneykeeper_flutter/server/globs.dart';
 import 'package:misamoneykeeper_flutter/server/loading_indicator.dart';
 import 'package:misamoneykeeper_flutter/utility/export.dart';

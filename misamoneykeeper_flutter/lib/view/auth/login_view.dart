@@ -1,7 +1,7 @@
 import 'package:misamoneykeeper_flutter/common/validator.dart';
+import 'package:misamoneykeeper_flutter/controller/auth/login_view_model.dart';
 import 'package:misamoneykeeper_flutter/view/auth/signup.dart';
 import 'package:misamoneykeeper_flutter/utility/export.dart';
-import 'package:misamoneykeeper_flutter/controller/login_view_model.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -142,11 +142,6 @@ class _LoginViewState extends State<LoginView> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          // Text(
-                          //   'Quên mật khẩu'.toUpperCase(),
-                          //   style: const TextStyle(
-                          //       color: Colors.blue, fontSize: 13),
-                          // ),
                           TextButton(
                               onPressed: () {
                                 Get.to(() => const SignUpView());
@@ -159,48 +154,6 @@ class _LoginViewState extends State<LoginView> {
                                   .make())
                         ],
                       ),
-                      // const SizedBox(height: 20),
-                      // const Row(
-                      //   children: [
-                      //     Expanded(
-                      //       child: Divider(
-                      //         color: Colors.grey,
-                      //         endIndent: 15,
-                      //         thickness: 0.7,
-                      //       ),
-                      //     ),
-                      //     Text(
-                      //       'Hoặc đăng nhập bằng',
-                      //       style: TextStyle(fontSize: 13),
-                      //     ),
-                      //     Expanded(
-                      //       child: Divider(
-                      //         color: Colors.grey,
-                      //         indent: 15,
-                      //         thickness: 0.7,
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
-                      // const SizedBox(height: 20),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.center,
-                      //   children: [
-                      //     Image.asset(
-                      //       imgFacebook,
-                      //       height: 35,
-                      //       width: 35,
-                      //     ),
-                      //     const SizedBox(
-                      //       width: 30,
-                      //     ),
-                      //     Image.asset(
-                      //       imgGoogle,
-                      //       height: 35,
-                      //       width: 35,
-                      //     ),
-                      //   ],
-                      // ),
                     ],
                   ),
                 ),

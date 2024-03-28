@@ -12,7 +12,6 @@ class LoginViewModel extends GetxController {
 
   void serviceCallLogin() {
     isLoading(true);
-    // Gửi yêu cầu post vs các tham số, đường dẫn, thành công, thất bại
     ServiceCall.post({
       "email": txtEmail.value.text,
       "password": txtPassword.value.text,

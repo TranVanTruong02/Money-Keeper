@@ -18,7 +18,6 @@ class SpendingVM extends GetxController {
           return SpendingMoney.fromJson(oObj);
         }).toList();
       }
-      print(data.length);
     }, failure: (err) async {
       Get.snackbar(appname, err.toString());
     });

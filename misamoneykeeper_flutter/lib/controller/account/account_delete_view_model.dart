@@ -1,4 +1,4 @@
-import 'package:misamoneykeeper_flutter/controller/account_view_model.dart';
+import 'package:misamoneykeeper_flutter/controller/account/account_view_model.dart';
 import 'package:misamoneykeeper_flutter/controller/splash_view_model.dart';
 import 'package:misamoneykeeper_flutter/server/globs.dart';
 import 'package:misamoneykeeper_flutter/server/service_call.dart';
@@ -12,7 +12,6 @@ class AccountDeleteViewModel extends GetxController {
   var idAccount = ''.obs;
 
   void serviceCallAccountDelete() async {
-    print(idAccount.value.toString());
     isLoading(true);
     await ServiceCallDelete.delete({
       "account_id": idAccount.value.toString(),

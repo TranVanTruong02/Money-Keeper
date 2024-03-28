@@ -122,16 +122,6 @@ class _HomeMainState extends State<HomeMain> {
             ),
           ),
         ),
-        // floatingActionButton: FloatingActionButton(
-        //   backgroundColor: Colors.blue,
-        //   onPressed: () {
-        //     _onItemTapped(4);
-        //   },
-        //   mini: true,
-        //   child: const Icon(Icons.add),
-        // ),
-        // floatingActionButtonLocation:
-        //     FloatingActionButtonLocation.miniCenterDocked,
       ),
     );
   }

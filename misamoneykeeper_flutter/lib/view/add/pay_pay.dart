@@ -2,7 +2,7 @@
 
 import 'package:date_format/date_format.dart';
 import 'package:flutter/services.dart';
-import 'package:misamoneykeeper_flutter/controller/pay_view_model.dart';
+import 'package:misamoneykeeper_flutter/controller/add/pay_view_model.dart';
 import 'package:misamoneykeeper_flutter/server/loading_indicator.dart';
 import 'package:misamoneykeeper_flutter/utility/export.dart';
 import 'package:misamoneykeeper_flutter/view/add/category_view.dart';
@@ -106,10 +106,10 @@ class _PayAccountState extends State<PayPay> {
                           if (value == null || value.isEmpty) {
                             return 'Vui lòng nhập số tiền';
                           }
-                          double number = double.parse(value);
-                          if (number >= 50000000) {
-                            return 'Số nhập vào phải nhỏ hơn 50 triệu.';
-                          }
+                          // double number = double.parse(value);
+                          // if (number >= 1000000000) {
+                          //   return 'Số nhập vào phải nhỏ hơn 1 tỷ.';
+                          // }
                           return null;
                         },
                         keyboardType: const TextInputType.numberWithOptions(

@@ -1,10 +1,10 @@
-import 'package:misamoneykeeper_flutter/controller/account_view_model.dart';
+import 'package:misamoneykeeper_flutter/controller/account/account_view_model.dart';
 import 'package:misamoneykeeper_flutter/controller/splash_view_model.dart';
 import 'package:misamoneykeeper_flutter/server/globs.dart';
 import 'package:misamoneykeeper_flutter/server/service_call.dart';
 import 'package:misamoneykeeper_flutter/utility/export.dart';
 
-class AccountUpdateViewModel extends GetxController {
+class AccountAddViewModel extends GetxController {
   var balanceController = TextEditingController().obs;
   var nameController = TextEditingController().obs;
   var descriptionController = TextEditingController().obs;
@@ -18,31 +18,35 @@ class AccountUpdateViewModel extends GetxController {
   var accountType = 'Tiền mặt'.obs;
   var accountTypeId = 1.obs;
 
-  final int accountId;
-  AccountUpdateViewModel(this.accountId);
-
-  void serviceCallAccountUpdate() async {
+  void serviceCallCategory() async {
     isLoading(true);
     isSuccess(false);
-    await ServiceCallPatch.patch({
-      "account_id": accountId.toString(),
+    await ServiceCall.post({
       "ac_name": nameController.value.text,
       "ac_money": balanceController.value.text,
       "ac_type": accountTypeId.value.toString(),
       "ac_explanation": descriptionController.value.text,
       "user_id": splashVM.userModel.value.id.toString()
-    }, SVKey.svUpdateAccount, isToken: true, withSuccess: (resObj) async {
+    }, SVKey.svAddAccount, isToken: true, withSuccess: (resObj) async {
       if (resObj[KKey.status] == 1) {
         isLoading(false);
         isSuccess(true);
-        balanceController.value.text = "";
-        nameController.value.text = "";
-        descriptionController.value.text = "";
+
         accountViewModel.serviceCallList();
-        Get.snackbar(appname, "Chúc mừng, bạn đã thay đổi thông tin tài khoản thành công");
+        Get.snackbar(appname, "Chúc mừng, bạn đã thêm tài khoản thành công");
       }
     }, failure: (err) async {
       Get.snackbar(appname, err.toString());
     });
+  }
+
+  void clean() {
+    balanceController.value.text = "";
+    isLoading(false);
+    isSuccess(false);
+    nameController.value.text = "";
+    descriptionController.value.text = "";
+    accountType.value = 'Tiền mặt';
+    accountTypeId.value = 1;
   }
 }

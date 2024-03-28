@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 import 'package:misamoneykeeper_flutter/common/chart_data.dart';
-import 'package:misamoneykeeper_flutter/controller/status_collect_view_model.dart';
+import 'package:misamoneykeeper_flutter/controller/home/status_collect_view_model.dart';
 import 'package:misamoneykeeper_flutter/model/charts_data.dart';
 import 'package:misamoneykeeper_flutter/server/globs.dart';
 import 'package:misamoneykeeper_flutter/server/loading_indicator.dart';
@@ -19,8 +19,7 @@ var statusCollectVM = Get.put(StatusCollectViewModel());
 
 class _StatusCollectState extends State<StatusCollect> {
   Future<void> delayedFunction() async {
-    await Future.delayed(
-        const Duration(milliseconds: 200)); // Thiết lập độ trễ là 2 giây
+    await Future.delayed(const Duration(milliseconds: 200));
     setState(() {});
   }
 

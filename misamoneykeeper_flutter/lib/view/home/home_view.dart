@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 import 'package:misamoneykeeper_flutter/common/chart_data.dart';
-import 'package:misamoneykeeper_flutter/controller/home_view_model.dart';
+import 'package:misamoneykeeper_flutter/controller/home/home_view_model.dart';
 import 'package:misamoneykeeper_flutter/controller/splash_view_model.dart';
 import 'package:misamoneykeeper_flutter/model/account_model.dart';
 import 'package:misamoneykeeper_flutter/model/charts_data.dart';
@@ -71,7 +71,6 @@ class _HomeViewState extends State<HomeView> {
                 snapshot.data?[1] as List<HomeStatusModel>?;
             List<RecnetNoteHome>? recnetNoteHome =
                 snapshot.data?[2] as List<RecnetNoteHome>?;
-            print(recnetNoteHome);
             int sum = 0;
             if (account!.isEmpty) {
               sum = 0;
@@ -83,7 +82,6 @@ class _HomeViewState extends State<HomeView> {
 
             var money = formatCurrency(sum);
 
-            // Tạo mảng dữ liệu chart data
             final List<ChartData> chartData =
                 status![0].category!.map((category) {
               return ChartData(category.caName!, category.sumMoney!.toDouble(),

@@ -1,4 +1,4 @@
-import 'package:misamoneykeeper_flutter/controller/collect_report_view_model.dart';
+import 'package:misamoneykeeper_flutter/controller/report/collect_report_view_model.dart';
 import 'package:misamoneykeeper_flutter/model/collect_money.dart';
 import 'package:misamoneykeeper_flutter/server/loading_indicator.dart';
 import 'package:misamoneykeeper_flutter/utility/export.dart';
@@ -115,22 +115,14 @@ class _CollectAnalysisViewState extends State<CollectAnalysisView>
         elevation: 0,
       ),
       body: FutureBuilder<List<CollectMoney>>(
-        // Gọi hàm fetchData() để nhận dữ liệu
         future: collectVM.serviceCallList(),
         builder: (context, snapshot) {
-          // Kiểm tra trạng thái của Future
           if (snapshot.connectionState == ConnectionState.waiting) {
-            // Nếu Future đang chờ dữ liệu, hiển thị một tiêu đề loading
             return Center(child: loadingIndicator());
           } else if (snapshot.hasError) {
-            // Nếu có lỗi xảy ra trong quá trình lấy dữ liệu, hiển thị một thông báo lỗi
             return Text('Error: ${snapshot.error}');
           } else {
-            // Nếu dữ liệu đã sẵn có, hiển thị dữ liệu lên giao diện
             final List<CollectMoney> data = snapshot.data!;
-            // Đây là nơi bạn có thể sử dụng dữ liệu để hiển thị trên giao diện
-            // Ví dụ: ListView.builder để hiển thị danh sách các tài khoản
-
             hasZeroValue = data.any((element) => element.pSum != 0);
             return SingleChildScrollView(
               child: Column(
@@ -360,10 +352,4 @@ class _CollectAnalysisViewState extends State<CollectAnalysisView>
       ),
     );
   }
-}
-
-class ChartData {
-  ChartData(this.x, this.y);
-  final int x;
-  final double y;
 }

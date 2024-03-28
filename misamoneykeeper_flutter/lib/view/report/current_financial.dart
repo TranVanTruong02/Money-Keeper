@@ -1,7 +1,7 @@
 import 'package:misamoneykeeper_flutter/common/delete_dialog.dart';
 import 'package:misamoneykeeper_flutter/common/report_row.dart';
-import 'package:misamoneykeeper_flutter/controller/account_view_model.dart';
-import 'package:misamoneykeeper_flutter/controller/current_financial_view_model.dart';
+import 'package:misamoneykeeper_flutter/controller/account/account_view_model.dart';
+import 'package:misamoneykeeper_flutter/controller/report/current_financial_view_model.dart';
 import 'package:misamoneykeeper_flutter/controller/splash_view_model.dart';
 import 'package:misamoneykeeper_flutter/model/account_model.dart';
 import 'package:misamoneykeeper_flutter/server/loading_indicator.dart';

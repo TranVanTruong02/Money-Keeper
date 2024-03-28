@@ -10,14 +10,8 @@ class CurrentFinancialViewModel extends GetxController {
   CurrentFinancialViewModel() {
     serviceCallList();
   }
-  // @override
-  // void onClose() {
-  //   streamController.close();
-  //   super.onClose();
-  // }
 
   final splashVM = Get.find<SplashViewModel>();
-  // //ServiceCall
   StreamController<List<Account>> streamController =
       StreamController<List<Account>>();
   void serviceCallList() async {
